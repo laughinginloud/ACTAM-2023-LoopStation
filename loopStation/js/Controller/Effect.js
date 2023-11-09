@@ -1,0 +1,3 @@
+class Effect {
+  // processor -> AudioWorkletProcessor
+}

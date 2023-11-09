@@ -1,0 +1,3 @@
+class Delay extends Effect {
+
+}
