@@ -1,0 +1,342 @@
+#loop_station{
+  max-width:100%;
+  height:100%;
+}
+body{
+  overflow:hidden ;
+}
+#global_controls {
+  position:relative;
+  max-width:100%;
+  height:180px;
+  /*background-color:#1d1e22f0;*/
+  background-image: repeating-conic-gradient(black 0deg 10deg, white 10deg 20deg, gray 20deg 30deg);
+  margin-top:10px;
+  min-width:1200px;
+
+}
+
+
+.module {
+  margin-top:180px;
+  width:20%;
+  height:250px;
+  float:left;
+  background-color: black;
+ 
+}
+
+
+
+#mod_2{
+  background-color: white;
+}
+
+#mod_4{
+  background-color: white;
+}
+
+#global_sp {
+position:absolute;
+transform:translate(50%,-50%);
+margin-top:10%;
+margin-left:35%;
+background-color:black;
+width: 60px;
+height:60px;
+font-size:120%;
+border: 2px solid #4fcf70;
+border-radius:100%;
+text-align: center;
+line-height:60px;
+vertical-align:middle;
+color:#4fcf70;
+cursor:pointer;
+-webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: Fantasy, Copperplate;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  box-shadow: inset 0 0 6px #ffffff;
+}
+
+.sp_button{
+position:absolute;
+margin-top:1%;
+margin-left:1%;
+background-color:black;
+width: 50px;
+height:50px;
+border: 2px solid white;
+border-radius:100%;
+text-align: center;
+line-height:50px;
+vertical-align:middle;
+color:white;
+cursor:pointer;
+-webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-size:20px;
+  font-family: Fantasy, Copperplate;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+box-shadow: inset 0 0 6px #ffffff;
+}
+
+.even{
+ background-color:white;
+ border: 2px solid black;
+ color:black;
+ box-shadow: inset 0 0 4px #000000;
+}
+
+.global_clear{
+  position:absolute;
+  transform:translate(-50%);
+  margin-top:2.5%;
+  left:70%;
+  padding:3px;
+  width:50px;
+  height:20px;
+  color:#4fcf70;
+  background-color: black;
+  border: 3px solid #4fcf70;
+  border-radius: 25%;
+  text-align: center;
+  font-size:18px;
+  line-height:20px;
+  cursor:pointer;
+-webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: Fantasy, Copperplate;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  box-shadow: inset 0 0 5px #ffffff;
+
+  
+}
+
+.clear_module{
+  float:left;
+  position:relative;
+  transform:translate(-50%,50%);
+  width:35px;
+  height:15px;
+  text-align:center;
+  left:85%;
+  padding:3px;
+  background-color: white;
+  border: 2px solid black;
+  cursor:pointer;
+-webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: Fantasy, Copperplate;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 25%;
+  cursor:pointer;
+-webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: Fantasy, Copperplate;
+  font-size: 80%;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  box-shadow: inset 0 0 3px #000000;
+}
+
+.odd {
+  color:white;
+  background-color:black;
+  border:solid white;
+  box-shadow: inset 0 0 5px #ffffff;
+}
+
+.rec_button {
+  position:relative;
+  margin:auto;
+  border-radius:100%;
+  width:80px;
+  height:80px;
+  vertical-align:middle;
+  text-align:center;
+  line-height:80px;
+  font-size:30px;
+  /*bottom:30%;*/
+  color:white;
+  background-color:black;
+  border:4px solid white;
+  cursor:pointer;
+-webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: Fantasy, Copperplate;
+  top:95px;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  box-shadow: inset 0 0 6px #ffffff;
+  
+}
+
+#rec2{
+  color:black;
+  background-color:white;
+  border:4px solid black;
+  box-shadow: inset 0 0 4px #000000;
+}
+
+#rec4{
+  color:black;
+  background-color:white;
+  border:4px solid black;
+  box-shadow: inset 0 0 4px #000000;
+}
+
+body{
+  background-color:#000000c4
+}
+
+.volume{
+  position:absolute;
+  transform:rotate(270deg);
+  margin-top:150px;
+  margin-left:-25px;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+#schermo{
+  position:absolute;
+  width:25%;
+  height:30%;
+  background-color:#666b7af2;
+ border:2px solid #5a6070f2;   transform:translate(50%,-50%);
+  left:25%;
+  top:30%;
+  
+  
+}
+
+#knobBG, #knob {
+  position:absolute;
+  background-repeat: no-repeat;
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/knob_Base.png');
+  background-size:cover;
+  width:110px;            
+  height:110px;
+  /*transform:translate(50%,-50%);*/
+  top:15px;
+  left:60px;
+ 
+}
+
+#knob {
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/knob_Spinner.png');
+  z-index: 1;
+  top:0px;
+  left:0px;
+  rotate:-135deg;
+}
+
+.effect{
+  position:absolute;
+  float:left;
+  color:#4fcf70;
+  width:30px;
+  height:30px;
+  border:2px solid #4fcf70;
+  background-color:black;
+  border-radius:100%;
+  text-align:center;
+  line-height:30px;
+  margin-top:150px;
+  margin-left:25px;
+  font-size:25px;
+  cursor:pointer;
+-webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: Fantasy, Copperplate;
+  transform:translate(50%,-50%);
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  box-shadow: inset 0 0 5px #ffffff;
+  
+}
+
+#effB{
+  margin-left: 80px;
+}
+
+#effC{
+  margin-left:135px;
+}
+
+/*#clear_last{
+  position:absolute;
+  transform:translate(50%,-50%);
+margin-top:10%;
+margin-left:45%;
+background-color:black;
+width: 60px;
+height:60px;
+font-size:14px;
+border: 2px solid #4fcf70;
+border-radius:100%;
+text-align: center;
+line-height:30px;
+vertical-align:middle;
+color:#4fcf70;
+cursor:pointer;
+-webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: Fantasy, Copperplate;
+word-wrap:break-word;
+}*/
+
+
+.edit {
+  position:absolute;
+  float:left;
+  width:35px;
+  top:230px;
+  margin-left:15.3%;
+  height:15px;
+  text-align:center;
+  padding:3px;
+  background-color: white;
+  border: 2px solid black;
+  cursor:pointer;
+-webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: Fantasy, Copperplate;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 25%;
+  cursor:pointer;
+-webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: Fantasy, Copperplate;
+  font-size: 80%;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  box-shadow: inset 0 0 3px #000000;
+
+}
+
+#ed1,#ed3,#ed5{
+  color:white;
+  background-color:black;
+  border:solid white;
+  box-shadow: inset 0 0 5px #ffffff;
+  
+}
