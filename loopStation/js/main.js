@@ -15,6 +15,18 @@ Draggable.create(knob, {
   type:"rotation",
   bounds:{minRotation:0, maxRotation:270},
   onDrag:function() {
+   var rotation = parseInt(this.rotation %  360, 10);
+    /*output.innerHTML = (rotation < 0) ? rotation + 360 : rotation;*/
+    var textarea = document.getElementById('control_panel');
+    textarea.value = rotation;
+  }
+});
+
+var knob1 = document.getElementById("eff_parameters");
+Draggable.create(knob1, {
+  type:"rotation",
+  bounds:{minRotation:0, maxRotation:270},
+  onDrag:function() {
     var rotation = parseInt(this.rotation % 360, 10);
     /*output.innerHTML = (rotation < 0) ? rotation + 360 : rotation;*/
   }

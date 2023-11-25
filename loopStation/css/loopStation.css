@@ -39,7 +39,7 @@ body{
 #global_sp {
 position:absolute;
 transform:translate(50%,-50%);
-margin-top:10%;
+margin: top 130px;
 margin-left:35%;
 background-color:black;
 width: 60px;
@@ -92,11 +92,47 @@ box-shadow: inset 0 0 6px #ffffff;
  box-shadow: inset 0 0 4px #000000;
 }
 
+.menu_scroll{
+  position:absolute;
+  float:left;
+  color:white;
+  background-color:black;
+  width:23px;
+  height:23px;
+  padding:2px;
+  border-radius:100%;
+  text-align:center;
+  line-height:23px;
+  margin-top:38.5px;
+  margin-left:66.3%;
+  font-size:20px;
+  cursor:pointer;
+-webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  transform:translate(50%,-50%);
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+ 
+  
+  
+}
+
+#previous{
+  transform:rotate(180deg);
+  margin-top:24.75px;
+  margin-left:64%;
+}
+#select{
+  margin-top:73px;
+  margin-left:64.6%;
+}
+
 .global_clear{
   position:absolute;
   transform:translate(-50%);
   margin-top:2.5%;
-  left:70%;
+  left:90%;
   padding:3px;
   width:50px;
   height:20px;
@@ -121,12 +157,13 @@ box-shadow: inset 0 0 6px #ffffff;
 
 .clear_module{
   float:left;
-  position:relative;
+  position:absolute;
   transform:translate(-50%,50%);
   width:35px;
   height:15px;
   text-align:center;
-  left:85%;
+  margin-left:17%;
+  margin-top:1%;
   padding:3px;
   background-color: white;
   border: 2px solid black;
@@ -146,8 +183,8 @@ box-shadow: inset 0 0 6px #ffffff;
   user-select: none;
   font-family: Fantasy, Copperplate;
   font-size: 80%;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
   box-shadow: inset 0 0 3px #000000;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 .odd {
@@ -209,15 +246,25 @@ body{
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
-#schermo{
+#control_panel{
   position:absolute;
   width:25%;
   height:30%;
   background-color:#666b7af2;
- border:2px solid #5a6070f2;   transform:translate(50%,-50%);
-  left:25%;
+  /*border:2px solid #5a6070f2;*/   
+  transform:translate(-50%,-50%);
   top:30%;
-  
+  left:50%;
+  /*cursor:none;*/
+  cursor:not-allowed;
+  resize:none;
+  text-transform: uppercase;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-size:110%;
+  font-family:Monospace,	Monaco;
   
 }
 
@@ -235,6 +282,27 @@ body{
 }
 
 #knob {
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/knob_Spinner.png');
+  z-index: 1;
+  top:0px;
+  left:0px;
+  rotate:-135deg;
+}
+
+#knobSM, #eff_parameters {
+  position:absolute;
+  background-repeat: no-repeat;
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/knob_Base.png');
+  background-size:cover;
+  width:80px;            
+  height:80px;
+  /*transform:translate(50%,-50%);*/
+  top:51%;
+  left:56.5%;
+ 
+}
+
+#eff_parameters {
   background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/knob_Spinner.png');
   z-index: 1;
   top:0px;
@@ -276,39 +344,41 @@ body{
   margin-left:135px;
 }
 
-/*#clear_last{
+#clear_last{
   position:absolute;
   transform:translate(50%,-50%);
-margin-top:10%;
-margin-left:45%;
-background-color:black;
-width: 60px;
-height:60px;
-font-size:14px;
-border: 2px solid #4fcf70;
-border-radius:100%;
-text-align: center;
-line-height:30px;
-vertical-align:middle;
-color:#4fcf70;
-cursor:pointer;
--webkit-user-select: none;
+  margin-top:130px;
+  margin-left:45%;
+  background-color:black;
+  width: 60px;
+  height:60px;
+  font-size:14px;
+  border: 2px solid #4fcf70;
+  border-radius:100%;
+  text-align: center;
+  line-height:30px;
+  vertical-align:middle;
+  color:#4fcf70;
+  cursor:pointer;
+  -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   font-family: Fantasy, Copperplate;
-word-wrap:break-word;
-}*/
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  box-shadow: inset 0 0 6px #ffffff;
+}
 
 
 .edit {
   position:absolute;
   float:left;
+  transform:translate(-50%,50%);
   width:35px;
-  top:230px;
-  margin-left:15.3%;
   height:15px;
   text-align:center;
+  margin-left:17%;
+  margin-top:4%;
   padding:3px;
   background-color: white;
   border: 2px solid black;
@@ -328,15 +398,14 @@ word-wrap:break-word;
   user-select: none;
   font-family: Fantasy, Copperplate;
   font-size: 80%;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
   box-shadow: inset 0 0 3px #000000;
-
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 #ed1,#ed3,#ed5{
   color:white;
   background-color:black;
   border:solid white;
-  box-shadow: inset 0 0 5px #ffffff;
+  box-shadow: inset 0 0 6px #ffffff;
   
 }
