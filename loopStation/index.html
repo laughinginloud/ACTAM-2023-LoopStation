@@ -1,20 +1,50 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html lang="en-gb">
 
 <head>
   <meta charset="utf-8">
   <title></title>
 
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/main.css">
+  <!-- <link rel="stylesheet" href="css/normalize.css"> -->
+  <!-- <link rel="stylesheet" href="css/main.css"> -->
+  <link rel="stylesheet" href="css/loopStation.css">
 
   <!-- <meta name="theme-color" content="#fafafa"> -->
 
+  <script src="https://unpkg.com/tone"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/utils/Draggable.min.js"></script>
+  <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/ThrowPropsPlugin.min.js"></script>
   <script type="module" src="js/main.js"></script>
 </head>
 
 <body>
-  <button id="test">Test</button>
+  <!-- <button id="test">Test</button> -->
+
+  <div id='loop_station'>
+    <div id='global_controls'>
+      <div id="knobBG"><div id="knob"></div>
+      </div>
+      <div id='global_sp'>⏵/⏸</div>
+      <div id='clear_last'>CLEAR
+        LAST</div>
+      <div class='global_clear' id='clear_all'>CLEAR</div>
+      <textarea id="control_panel" name="control_panel" rows="3" cols="50">benvenuti hdudbeidebdhgiudcviyfgfugfuvguvgfuvgfuvgfuv</textarea>
+      <div class='menu_scroll' id='previous'>➤</div>
+      <div class='menu_scroll' id='next'>➤</div>
+      <div class='menu_scroll' id='select'>✓</div>
+      <div id="knobSM"><div id="eff_parameters"></div>
+      </div>
+      <div class='effect' id='effA'>A</div>
+      <div class='effect' id='effB'>B</div>
+      <div class='effect' id='effC'>C</div>
+      <div class='module' id='mod_1'><div class='edit' id='ed1'>EDIT</div><div class='clear_module odd' id='clear1'>CLEAR</div><div class='sp_button' id='sp1'>⏵/⏸</div><div class='volume'id='vol1'><input type="range" id="points" name="points" min="0" max="10"></div><div class='rec_button' id='rec1'>⏵/⏺︎</div></div>
+      <div class='module' id='mod_2'><div class='edit' id='ed2'>EDIT</div><div class='clear_module' id='clear2'>CLEAR</div><div class='sp_button even' id='sp2'>⏵/⏸</div><div class='volume'id='vol1'><input type="range" id="points" name="points" min="0" max="10"></div><div class='rec_button ' id='rec2'>⏵/⏺︎</div></div>
+      <div class='module' id='mod_3'><div class='edit' id='ed3'>EDIT</div><div class='clear_module odd'id='clear3'>CLEAR</div><div class='sp_button' id='sp3'>⏵/⏸</div><div class='volume'id='vol1'><input type="range" id="points" name="points" min="0" max="10"></div><div class='rec_button' id='rec3'>⏵/⏺︎</div></div>
+      <div class='module' id='mod_4'><div class='edit' id='ed4'>EDIT</div><div class='clear_module'id='clear4'>CLEAR</div><div class='sp_button even' id='sp4'>⏵/⏸</div><div class='volume'id='vol1'><input type="range" id="points" name="points" min="0" max="10"></div><div class='rec_button' id='rec4'>⏵/⏺︎</div></div>
+      <div class='module' id='mod_5'><div class='edit' id='ed5'>EDIT</div><div class='clear_module odd' id='clear5'>CLEAR</div><div class='sp_button' id='sp5'>⏵/⏸</div><div class='volume'id='vol1'><input type="range" id="points" name="points" min="0" max="10"></div><div class='rec_button' id='rec5'>⏵/⏺︎</div></div>
+    </div>
+  </div>
 </body>
 
 </html>
