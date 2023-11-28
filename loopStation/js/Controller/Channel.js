@@ -7,9 +7,8 @@ class Channel {
 
   constructor(audioContext, model) {
     this.audioContext = audioContext;
-    this.buffer = new AudioBuffer(model.getBufferOptions());
 
-    this.player = new Player(this.audioContext, this.buffer);
+    this.player = new Player(this.audioContext, model.getBufferOptions());
 
     // effectChain = [delay, ds-1, ...]
 
@@ -21,6 +20,6 @@ class Channel {
   }
 }
 
-import {Player} from "./Player.js";
+import { Player } from "./Player.js";
 
 export { Channel };

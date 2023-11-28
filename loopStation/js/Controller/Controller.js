@@ -20,7 +20,7 @@ class Controller {
     return this.channels[n];
   }
 
-  // mixer -> ChannelMergerNode
+  // mixer -> ChannelMergerNode (TODO check: sembra per unire più canali à la surround)
 }
 
 import { Channel } from "./Channel.js";
