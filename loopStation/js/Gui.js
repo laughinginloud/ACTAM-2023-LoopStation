@@ -1,4 +1,4 @@
-  // init vari
+function initGui() {
   let knob = document.getElementById("knob");
   Draggable.create(knob, {
     type:   "rotation",
@@ -20,3 +20,6 @@
       /*output.innerHTML = (rotation < 0) ? rotation + 360 : rotation;*/
     }
   });
+}
+
+export { initGui }
