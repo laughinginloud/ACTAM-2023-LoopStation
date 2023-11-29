@@ -1,20 +1,19 @@
 class Player {
   audioContext;
   audioBuffer;
-  bufferOptions;
+  model;
 
   rec;     // TODO: Reneame me, please!
   chunks;  // TODO: Reneame me, please!
   recFlag; // TODO: Reneame me, please!
 
-  constructor(audioContext, bufferOptions) {
+  constructor(audioContext, model) {
     this.audioContext  = audioContext;
-    this.bufferOptions = bufferOptions;
+    this.model = model;
     this.clean();
 
     this.rec     = null;
     this.chunks  = [];
-    this.recFlag = false;
   }
 
   play() {
@@ -35,9 +34,7 @@ class Player {
   }
 
   startRecord() {
-    this.recFlag = true;
-
-    window.navigator.mediaDevices.getUserMedia({ audio: boolean }).then(stream => this.recorder);
+    window.navigator.mediaDevices.getUserMedia({ audio: boolean }).then(this.recorder);
   }
 
   recorder(stream) {
@@ -45,17 +42,21 @@ class Player {
     this.rec.start();
     this.rec.ondatavailable = e => {
       this.chunks.push(e.data);
-
-      if (!this.recFlag)
-        this.rec.stop();
+      if (this.rec.state == "inactive") {
+        let blob = new Blob(this.chunks, { type: "audio/mp3" });
+        console.log(blob);
+        document.getElementById("audioElement").src = URL.createObjectURL(blob);
+      }
     };
   }
 
   stopRecord() {
-    this.recFlag = false;
-
-    let dubOptions = this.bufferOptions;
-
+    //let dubOptions = this.model.getBufferOptions();
+    //if (this.model.firstRecord) {
+    //  this.model.setBufferLength(this.audioBuffer.duration)
+    //}
+    this.rec.stop();
+    /*
     if (this.audioBuffer.cur !== null)
       dubOptions.length = this.audioBuffer.duration;
 
@@ -64,6 +65,7 @@ class Player {
       const samples = this.audioBuffer.cur.getChannelData(i);
       this.audioBuffer.old.copyToChannel(samples, i);
     }
+    */
 
     // prende la lista di chunks, mixa i chunks con il buffer
   }

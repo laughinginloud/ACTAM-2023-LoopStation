@@ -8,7 +8,7 @@ class Channel {
   constructor(audioContext, model) {
     this.audioContext = audioContext;
 
-    this.player = new Player(this.audioContext, model.getBufferOptions());
+    this.player = new Player(this.audioContext, model);
 
     // effectChain = [delay, ds-1, ...]
 
