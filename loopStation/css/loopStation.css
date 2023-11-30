@@ -1,5 +1,6 @@
 #loop_station{
-  max-width:100%;
+  position:fixed;
+  max-width:1600px;
   height:100%;
 }
 body{
@@ -39,18 +40,18 @@ body{
 #global_sp {
 position:absolute;
 transform:translate(50%,-50%);
-margin: top 130px;
+margin-top:130px;
 margin-left:35%;
 background-color:black;
 width: 60px;
 height:60px;
 font-size:120%;
-border: 2px solid #4fcf70;
+border: 4px solid #383a38;
 border-radius:100%;
 text-align: center;
 line-height:60px;
 vertical-align:middle;
-color:#4fcf70;
+color:#5c5f5c;
 cursor:pointer;
 -webkit-user-select: none;
   -moz-user-select: none;
@@ -65,15 +66,15 @@ cursor:pointer;
 position:absolute;
 margin-top:1%;
 margin-left:1%;
+color:#5c5f5c;
+border: 3.5px solid #383a38;
 background-color:black;
 width: 50px;
 height:50px;
-border: 2px solid white;
 border-radius:100%;
 text-align: center;
 line-height:50px;
 vertical-align:middle;
-color:white;
 cursor:pointer;
 -webkit-user-select: none;
   -moz-user-select: none;
@@ -86,10 +87,8 @@ box-shadow: inset 0 0 6px #ffffff;
 }
 
 .even{
- background-color:white;
- border: 2px solid black;
- color:black;
- box-shadow: inset 0 0 4px #000000;
+  background-color:white;
+  box-shadow: inset 0 0 4px #000000; 
 }
 
 .menu_scroll{
@@ -112,16 +111,13 @@ box-shadow: inset 0 0 6px #ffffff;
   -ms-user-select: none;
   user-select: none;
   transform:translate(50%,-50%);
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
- 
-  
-  
+  -webkit-tap-highlight-color: rgba(0,0,0,0); 
 }
 
 #previous{
-  transform:rotate(180deg);
-  margin-top:24.75px;
-  margin-left:64%;
+  transform:translate(50%,-50%);;
+  margin-top:38.5px;
+  margin-left:63%;
 }
 #select{
   margin-top:73px;
@@ -136,9 +132,9 @@ box-shadow: inset 0 0 6px #ffffff;
   padding:3px;
   width:50px;
   height:20px;
-  color:#4fcf70;
   background-color: black;
-  border: 3px solid #4fcf70;
+  color:#5c5f5c;
+  border: 3px solid #383a38;
   border-radius: 25%;
   text-align: center;
   font-size:18px;
@@ -165,16 +161,15 @@ box-shadow: inset 0 0 6px #ffffff;
   margin-left:17%;
   margin-top:1%;
   padding:3px;
-  background-color: white;
-  border: 2px solid black;
   cursor:pointer;
 -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   font-family: Fantasy, Copperplate;
+  color:#5c5f5c;
   background-color: white;
-  border: 2px solid black;
+  border: 3px solid #383a38;
   border-radius: 25%;
   cursor:pointer;
 -webkit-user-select: none;
@@ -188,10 +183,13 @@ box-shadow: inset 0 0 6px #ffffff;
 }
 
 .odd {
-  color:white;
   background-color:black;
-  border:solid white;
   box-shadow: inset 0 0 5px #ffffff;
+}
+
+div .modifica{
+  color:#62d12a;
+  border:solid #62d12a;
 }
 
 .rec_button {
@@ -205,9 +203,9 @@ box-shadow: inset 0 0 6px #ffffff;
   line-height:80px;
   font-size:30px;
   /*bottom:30%;*/
-  color:white;
+  color:#5c5f5c;
   background-color:black;
-  border:4px solid white;
+  border:6px solid #5c5f5c;
   cursor:pointer;
 -webkit-user-select: none;
   -moz-user-select: none;
@@ -221,16 +219,12 @@ box-shadow: inset 0 0 6px #ffffff;
 }
 
 #rec2{
-  color:black;
   background-color:white;
-  border:4px solid black;
   box-shadow: inset 0 0 4px #000000;
 }
 
 #rec4{
-  color:black;
   background-color:white;
-  border:4px solid black;
   box-shadow: inset 0 0 4px #000000;
 }
 
@@ -241,7 +235,7 @@ body{
 .volume{
   position:absolute;
   transform:rotate(270deg);
-  margin-top:150px;
+  bottom:-175px;
   margin-left:-25px;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
@@ -262,8 +256,8 @@ body{
   display: block;
   margin-left: auto;
   margin-right: auto;
-  text-align: center;
-  font-size:110%;
+  text-align: left;
+  font-size:96%;
   font-family:Monospace,	Monaco;
   
 }
@@ -313,10 +307,10 @@ body{
 .effect{
   position:absolute;
   float:left;
-  color:#4fcf70;
+  color:#5c5f5c;
   width:30px;
   height:30px;
-  border:2px solid #4fcf70;
+  border:3px solid #383a38;
   background-color:black;
   border-radius:100%;
   text-align:center;
@@ -348,17 +342,17 @@ body{
   position:absolute;
   transform:translate(50%,-50%);
   margin-top:130px;
-  margin-left:45%;
+  margin-left:44.6%;
   background-color:black;
   width: 60px;
   height:60px;
   font-size:14px;
-  border: 2px solid #4fcf70;
+  border: 3px solid #383a38;
   border-radius:100%;
   text-align: center;
   line-height:30px;
   vertical-align:middle;
-  color:#4fcf70;
+  color:#5c5f5c;
   cursor:pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -380,17 +374,10 @@ body{
   margin-left:17%;
   margin-top:4%;
   padding:3px;
-  background-color: white;
-  border: 2px solid black;
-  cursor:pointer;
--webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  font-family: Fantasy, Copperplate;
-  background-color: white;
-  border: 2px solid black;
   border-radius: 25%;
+  background-color: white;
+  color:#5c5f5c;
+  border: 3px solid #383a38;
   cursor:pointer;
 -webkit-user-select: none;
   -moz-user-select: none;
@@ -402,10 +389,15 @@ body{
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
-#ed1,#ed3,#ed5{
-  color:white;
+
+.dispari{
+  
   background-color:black;
-  border:solid white;
   box-shadow: inset 0 0 6px #ffffff;
+}
+
+div .recording_mode{
+  border:5px solid #df057b;
+  color:#df057b;
   
 }
