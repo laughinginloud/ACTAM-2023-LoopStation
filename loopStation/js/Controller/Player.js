@@ -3,60 +3,78 @@ class Player {
   audioBuffer;
   model;
 
-  rec;     // TODO: Reneame me, please!
-  chunks;  // TODO: Reneame me, please!
-  recFlag; // TODO: Reneame me, please!
+  /**
+   * @type {AudioBufferSourceNode}
+   */
+  audioBufferSource;
+
+  rec;     // TODO: Rename me, please!
+  chunks;  // TODO: Rename me, please!
+  recFlag; // TODO: Rename me, please!
+
+  startTime;
 
   constructor(audioContext, model) {
-    this.audioContext  = audioContext;
+    this.audioContext = audioContext;
     this.model = model;
     this.clean();
 
-    this.rec     = {};
-    this.chunks  = [];
+    this.rec = {};
+    this.chunks = [];
+
+    this.audioBufferSource = null;
+
+    this.startTime = 0;
   }
 
   play() {
-    alert("Alert");
+    console.log("Play");
     //let audioBufferSourceNode = new AudioBufferSourceNode(this.audioContext, {buffer: this.audioBuffer, loop: true});
     //audioBufferSourceNode.start();
-    const source = this.audioContext.createBufferSource();
-    source.buffer = this.audioBuffer;
     //console.log(this.audioBuffer);
-    source.loop = true;
-    source.connect(this.audioContext.destination)
-    source.start();
+
+    this.audioBufferSource = this.audioContext.createBufferSource();
+    this.audioBufferSource.buffer = this.audioBuffer;
+    this.audioBufferSource.playbackRate.value = 1;
+    this.audioBufferSource.loop = true;
+    this.audioBufferSource.connect(this.audioContext.destination);
+    this.audioBufferSource.start(0, this.startTime);
   }
 
   pause() {
-
+    this.audioBufferSource.stop();
+    // TODO: salvare tempo di interruzione in startTime (stop non lo segnala e non parrebbe esserci un parametro in audioBufferSource, quindi bisogna cronometrare)
+    // Per cronometro: https://stackoverflow.com/questions/31644060/how-can-i-get-an-audiobuffersourcenodes-current-time
   }
 
-  rewind() {
-
+  stop() {
+    this.audioBufferSource.stop();
+    this.startTime = 0;
   }
+
+  rewind() {}
 
   clean() {
     //this.audioBuffer  = { cur: new AudioBuffer(this.model.bufferLength, this.model.bufferNumberOfChannels, this), old: null };
+    this.audioBufferSource = null;
     // Altro?
   }
 
   startRecord() {
-    window.navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-      this.rec = new MediaRecorder(stream); // TODO: MIME type?
-      this.rec.start();
-      this.rec.ondataavailable = e => {
-        this.chunks.push(e.data);
-      };
-      this.rec.onstop = () => {
-        //let blob = new Blob(this.chunks, { type: "audio/mp3" });
-        //console.log(blob);
-        //document.getElementById("audioElement").src = URL.createObjectURL(blob);
-        console.log(this.chunks[0]);
+    this.stop();
 
-        this.chunks[0].arrayBuffer().then(async arrayBuffer => {
-          //this.audioBuffer = this.audioContext.createBuffer(this.model.bufferNumberOfChannels, this.model.bufferLength, this.model.bufferSampleRate);
+    window.navigator.mediaDevices
+      .getUserMedia({ audio: true })
+      .then(stream => {
+        this.rec = new MediaRecorder(stream); // TODO: MIME type?
+        this.rec.start();
+
+        this.rec.ondataavailable = e => this.chunks.push(e.data);
+
+        this.rec.onstop = async () => {
+          const arrayBuffer = await this.chunks[0].arrayBuffer();
           this.audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
+          // TODO: attualmente il blob diventa il nuovo buffer, ma bisogna fare il mix con quello vecchio (si può usare come appoggio per mantenere i vecchi dati il buffer "old")
 
           //let bufferData = this.audioBuffer.getChannelData(0);
           //for (let i=0; i<bufferData.length; i++) {
@@ -70,43 +88,20 @@ class Player {
           //  this.audioBuffer.copyToChannel(new Float32Array(arrayBuffer[i]), i);
           this.chunks = [];
 
-          const bs = this.audioContext.createBufferSource();
-          bs.buffer = this.audioBuffer;
-          bs.playbackRate.value = 1;
-          bs.loop = true;
-          bs.connect(this.audioContext.destination);
-          bs.start()
-        })
-      };
-    });
-  }
-
-  recorder(stream) {
-    // pass
+          // TODO: decidere se spostare la chiamata e delegarla alla view (in tal caso, gestire l'asincronicità di stopRecord e play)
+          this.play();
+        };
+      });
   }
 
   stopRecord() {
-    //let dubOptions = this.model.getBufferOptions();
-    //if (this.model.firstRecord) {
-    //  this.model.setBufferLength(this.audioBuffer.duration)
-    //}
     this.rec.stop();
-    /*
-    if (this.audioBuffer.cur !== null)
-      dubOptions.length = this.audioBuffer.duration;
-
-    this.audioBuffer.old = new AudioBuffer(this.bufferOptions);
-    for (let i = 0; i < this.audioBuffer.old.numberOfChannels; ++i) {
-      const samples = this.audioBuffer.cur.getChannelData(i);
-      this.audioBuffer.old.copyToChannel(samples, i);
-    }
-    */
-
-    // prende la lista di chunks, mixa i chunks con il buffer
   }
 
   undo() {
-    this.audioBuffer = { cur: this.audioBuffer.old, old: this.audioBuffer.old };
+    this.stop();
+    this.audioBuffer = { cur: this.audioBuffer.old, old: this.audioBuffer.old }; // TODO: attualmente un solo buffer, aggiungere il secondo
+    this.play();
   }
 }
 

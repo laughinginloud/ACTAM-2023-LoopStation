@@ -25,6 +25,10 @@ document.getElementById("test").addEventListener("click", () => {
   else {
     rec = false;
     controller.channels[0].player.stopRecord();
-    controller.channels[0].player.play();
+    //controller.channels[0].player.play();
   }
+})
+
+document.getElementById("pause").addEventListener("click", () => {
+  controller.channels[0].player.pause();
 })
