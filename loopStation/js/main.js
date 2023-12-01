@@ -6,9 +6,25 @@ import { View, ChannelHandler, TopBarHandler } from "./View/View";
 import * as Tone from "tone";
 
 //{
-  initGui();
+  //initGui();
 
   const model = new Model();
   const controller = new Controller(model);
   const view = new View(model, controller);
 //}
+
+document.body.onclick = () => controller.audioContext.resume();
+
+let rec = false;
+document.getElementById("test").addEventListener("click", () => {
+  if (rec === false) {
+    rec = true;
+    controller.channels[0].player.startRecord();
+  }
+
+  else {
+    rec = false;
+    controller.channels[0].player.stopRecord();
+    controller.channels[0].player.play();
+  }
+})

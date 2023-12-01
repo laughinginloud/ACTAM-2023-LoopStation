@@ -4,11 +4,11 @@ class TopBarHandler {
   constructor(controller) {
     this.controller = controller;
 
-    const testBtn = document.getElementById("test");
+    //const testBtn = document.getElementById("test");
 
-    testBtn.addEventListener("click", () => {
-      controller.getChannel(0).getPlayer().play();
-    });
+    //testBtn.addEventListener("click", () => {
+    //  controller.getChannel(0).getPlayer().play();
+    //});
   }
 }
 
