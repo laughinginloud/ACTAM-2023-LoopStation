@@ -15,7 +15,10 @@ import * as Tone from "tone";
 
 document.body.onclick = () => controller.audioContext.resume();
 
+// TODO: spostare logica in view (flag di appoggio presenti in player)
 let rec = false;
+let play = false;
+
 document.getElementById("test").addEventListener("click", () => {
   if (rec === false) {
     rec = true;
@@ -25,10 +28,47 @@ document.getElementById("test").addEventListener("click", () => {
   else {
     rec = false;
     controller.channels[0].player.stopRecord();
+    play = true;
     //controller.channels[0].player.play();
   }
 })
 
 document.getElementById("pause").addEventListener("click", () => {
-  controller.channels[0].player.pause();
+  if (rec) {
+    rec = false;
+    play = true;
+    controller.channels[0].player.stopRecord();
+  }
+
+  else if (play) {
+    play = false;
+    controller.channels[0].player.pause();
+  }
+
+  else if (!play) {
+    play = true;
+    controller.channels[0].player.play();
+  }
+})
+
+document.getElementById("vol").addEventListener("input", () => {
+  controller.channels[0].changeGain(Number(document.getElementById("vol").value) / 100);
+})
+
+document.getElementById("startStop").addEventListener("click", () => {
+  if (rec) {
+    rec = false;
+    play = true;
+    controller.channels[0].player.stopRecord();
+  }
+
+  else if (play) {
+    play = false;
+    controller.channels[0].player.stop();
+  }
+
+  else if (!play) {
+    play = true;
+    controller.channels[0].player.play();
+  }
 })
