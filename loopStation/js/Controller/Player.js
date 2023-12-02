@@ -2,7 +2,7 @@ class Player {
   audioContext;
   audioBuffer;
   model;
-  gain;
+  channel;
 
   /**
    * @type {AudioBufferSourceNode}
@@ -16,7 +16,7 @@ class Player {
 
   startTime;
 
-  constructor(audioContext, model, gain) {
+  constructor(audioContext, model, channel) {
     this.audioContext = audioContext;
     this.model = model;
     this.clean();
@@ -28,7 +28,7 @@ class Player {
 
     this.startTime = 0;
 
-    this.gain = gain;
+    this.channel = channel;
 
     this.flags = {
       play: false,
@@ -50,7 +50,7 @@ class Player {
       this.audioBufferSource.buffer = this.audioBuffer;
       this.audioBufferSource.playbackRate.value = 1;
       this.audioBufferSource.loop = true;
-      this.audioBufferSource.connect(this.gain);
+      this.channel.connectPlayer(this.audioBufferSource);
       this.audioBufferSource.start(0, this.startTime);
     }
   }
