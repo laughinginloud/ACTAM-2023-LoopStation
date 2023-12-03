@@ -3,7 +3,9 @@ import { Model } from "./Model/Model";
 import { Controller, Channel, Player } from "./Controller/Controller";
 import { View, ChannelHandler, TopBarHandler } from "./View/View";
 
-import * as Tone from "tone";
+//import * as Tone from "tone";
+import { initEffects } from "./Controller/Effect";
+//import { Filter }      from "./Controller/Filter";
 
 //{
   //initGui();
@@ -11,6 +13,8 @@ import * as Tone from "tone";
   const model = new Model();
   const controller = new Controller(model);
   const view = new View(model, controller);
+
+  initEffects(controller.audioContext);
 //}
 
 document.body.onclick = () => controller.audioContext.resume();
@@ -70,5 +74,18 @@ document.getElementById("startStop").addEventListener("click", () => {
   else if (!play) {
     play = true;
     controller.channels[0].player.play();
+  }
+})
+
+let filter = false;
+document.getElementById("filter").addEventListener("click", () => {
+  if (!filter) {
+    controller.channels[0].setEffect('A', new AudioWorkletNode(controller.audioContext, "Filter"))
+    filter = true;
+  }
+
+  else {
+    controller.channels[0].setEffect('A', null)
+    filter = false;
   }
 })

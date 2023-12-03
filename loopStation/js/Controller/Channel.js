@@ -2,13 +2,14 @@ class Channel {
   audioContext;
   player;
   buffer;
-  effectChain;
+  audioChain;
+  effects;
   gain;
 
   constructor(audioContext, model) {
     this.audioContext = audioContext;
 
-    this.effectChain = {
+    this.effects = {
       A: null,
       B: null,
       C: null
@@ -16,6 +17,8 @@ class Channel {
 
     this.gain = new GainNode(this.audioContext, { channelCount: 2 });
     this.gain.connect(audioContext.destination);
+
+    this.audioChain = this.gain;
 
     this.player = new Player(this.audioContext, model, this);
   }
@@ -29,29 +32,35 @@ class Channel {
   }
 
   getEffect(slot) {
-    return this.effectChain[String(slot).trim()];
+    return this.effects[String(slot).trim()];
   }
 
   setEffect(slot, effect) {
     this.player.pause();
-    this.effectChain[String(slot).trim()] = effect;
+
+    this.effects[String(slot).trim()] = effect;
+    this.rebuildChain();
+
     this.player.play();
   }
 
   connectPlayer(audioBufferSourceNode) {
-    let lastNode = audioBufferSourceNode;
+    audioBufferSourceNode.connect(this.audioChain);
+  }
 
-    for (const i in this.effectChain) {
-      if (this.effectChain[i]) {
-        lastNode.connect(this.effectChain[i]);
-        lastNode = this.effectChain[i];
+  rebuildChain() {
+    this.audioChain = this.gain;
+
+    for (const i of ['C', 'B', 'A'])
+      if (this.effects[i]) {
+        this.effects[i].disconnect();
+        this.effects[i].connect(this.audioChain);
+        this.audioChain = this.effects[i];
       }
-    }
-
-    lastNode.connect(this.gain);
   }
 }
 
 import { Player } from "./Player.js";
+//import { Filter } from "./Filter.js";
 
 export { Channel };
