@@ -95,8 +95,23 @@ class Player {
         this.rec.onstop = async () => {
           this.flags.rec = false;
 
-          const arrayBuffer = await this.chunks[0].arrayBuffer();
-          this.audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
+          if (this.model.firstRecord) {
+            const arrayBuffer = await this.chunks[0].arrayBuffer();
+            this.audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
+            this.model.firstRecord = false;
+          }
+
+          else {
+            let prevRecordings = this.audioBuffer;
+            //console.log('prev buffer', prevRecordings);
+            const arrayBuffer = await this.chunks[0].arrayBuffer();
+            this.audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
+            //console.log('curr buffer', this.audioBuffer);
+            this.audioBuffer = await this.overdub([prevRecordings, this.audioBuffer]);
+            //console.log('merged', this.audioBuffer)
+          }
+          
+          
           // TODO: attualmente il blob diventa il nuovo buffer, ma bisogna fare il mix con quello vecchio (si può usare come appoggio per mantenere i vecchi dati il buffer "old")
 
           //let bufferData = this.audioBuffer.getChannelData(0);
@@ -116,6 +131,53 @@ class Player {
         };
       });
   }
+
+  /*
+  overdub(prev, curr) {
+    console.log('into overdub function');
+    for (let i = 0; i < this.model.numberOfChannels; i++) {
+      let output = prev.getChannelData(j);
+      let input = curr.getChannelData(j);
+      for (let j = 0; j < this.model.bufferLength; j++) {
+        output[j] += input[j];
+      }
+    }
+    return prev;
+  }
+  */
+
+  overdub(buffers) {
+
+    var n_buffer = buffers.length;    
+    var maxChannels = 0;              // Get the maximum number of channels accros all buffers
+    var maxDuration = 0;              // Get the maximum length
+
+    for (var i = 0; i < n_buffer; i++) {
+        if (buffers[i].numberOfChannels > maxChannels) {  //TODO: i buffer che creiamo hanno solo un channel idk perché
+            maxChannels = buffers[i].numberOfChannels;
+        }
+        if (buffers[i].duration > maxDuration) {
+            maxDuration = buffers[i].duration;
+        }
+    }
+
+    var mixed = this.audioContext.createBuffer(maxChannels, this.audioContext.sampleRate * maxDuration, this.audioContext.sampleRate);        
+
+    for (var j=0; j<n_buffer; j++){
+
+        // For each channel contained in a buffer...
+        for (var ch = 0; ch < buffers[j].numberOfChannels; ch++) {
+            var output = mixed.getChannelData(ch);                    // Get the channel we will mix into
+            var input = buffers[j].getChannelData(ch);                // Get the channel we want to mix in
+
+            for (var i = 0; i < input.length; i++) {
+                output[i] += input[i];                                // Calculate the new value for each index of the buffer array
+            }
+        }
+    }
+
+    return mixed;
+}
 
   stopRecord() {
     this.rec?.stop();
