@@ -18,6 +18,12 @@ import { initEffects } from "./Controller/Effect";
 
 document.body.onclick = () => controller.audioContext.resume();
 
+/**
+ * @type Channel
+ */
+const channel = controller.channels[0];
+const player  = channel.player;
+
 // TODO: spostare logica in view (flag di appoggio presenti in player)
 let rec = false;
 let play = false;
@@ -25,14 +31,14 @@ let play = false;
 document.getElementById("test").addEventListener("click", () => {
   if (rec === false) {
     rec = true;
-    controller.channels[0].player.startRecord(controller.channels[0].player.play);
+    player.startRecord(player.play);
   }
 
   else {
     rec = false;
-    controller.channels[0].player.stopRecord();
+    player.stopRecord();
     play = true;
-    //controller.channels[0].player.play();
+    //player.play();
   }
 })
 
@@ -40,51 +46,53 @@ document.getElementById("pause").addEventListener("click", () => {
   if (rec) {
     rec = false;
     play = true;
-    controller.channels[0].player.stopRecord();
+    player.stopRecord();
   }
 
   else if (play) {
     play = false;
-    controller.channels[0].player.pause();
+    player.pause();
   }
 
   else if (!play) {
     play = true;
-    controller.channels[0].player.play();
+    player.play();
   }
 })
 
 document.getElementById("vol").addEventListener("input", () => {
-  controller.channels[0].changeGain(Number(document.getElementById("vol").value) / 100);
+  channel.changeGain(Number(document.getElementById("vol").value) / 100);
 })
 
 document.getElementById("startStop").addEventListener("click", () => {
   if (rec) {
     rec = false;
     play = true;
-    controller.channels[0].player.stopRecord();
+    player.stopRecord();
   }
 
   else if (play) {
     play = false;
-    controller.channels[0].player.stop();
+    player.stop();
   }
 
   else if (!play) {
     play = true;
-    controller.channels[0].player.play();
+    player.play();
   }
 })
 
 let filter = false;
 document.getElementById("filter").addEventListener("click", () => {
   if (!filter) {
-    controller.channels[0].setEffect('A', new AudioWorkletNode(controller.audioContext, "Filter"))
+    channel.setEffect('A', new AudioWorkletNode(controller.audioContext, "Filter"))
     filter = true;
   }
 
   else {
-    controller.channels[0].setEffect('A', null)
+    channel.removeEffect('A')
     filter = false;
   }
 })
+
+document.getElementById("undo").addEventListener("click", player.undo)

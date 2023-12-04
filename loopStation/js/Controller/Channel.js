@@ -44,6 +44,10 @@ class Channel {
     this.player.play();
   }
 
+  removeEffect(slot) {
+    this.setEffect(slot, null);
+  }
+
   connectPlayer(audioBufferSourceNode) {
     audioBufferSourceNode.connect(this.audioChain);
   }
@@ -51,6 +55,7 @@ class Channel {
   rebuildChain() {
     this.audioChain = this.gain;
 
+    // Costruisce la catena a partire dalla fine
     for (const i of ['C', 'B', 'A'])
       if (this.effects[i]) {
         this.effects[i].disconnect();
