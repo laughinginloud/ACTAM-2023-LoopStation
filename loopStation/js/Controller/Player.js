@@ -20,6 +20,7 @@ class Player {
   flags;
 
   startTime;
+  pauseTime;
 
   constructor(audioContext, model, channel) {
     this.audioContext = audioContext;
@@ -31,7 +32,7 @@ class Player {
 
     this.audioBufferSource = null;
 
-    this.startTime = 0;
+    this.rewind();
 
     this.undoable = false;
 
@@ -45,12 +46,10 @@ class Player {
 
   // È una lambda così che 'this' sia sempre riferito al proprio Player
   play = () => {
-    console.log("Play");
+    //console.log("Play");
     //let audioBufferSourceNode = new AudioBufferSourceNode(this.audioContext, {buffer: this.audioBuffer, loop: true});
     //audioBufferSourceNode.start();
     //console.log(this.audioBuffer);
-
-    this.flags.play = true;
 
     // TODO: null-check (causa: pressione undo quando il canale è vuoto)
     if (this.audioBuffer.cur) {
@@ -59,12 +58,18 @@ class Player {
       this.audioBufferSource.playbackRate.value = 1;
       this.audioBufferSource.loop = true;
       this.channel.connectPlayer(this.audioBufferSource);
-      this.audioBufferSource.start(0, this.startTime);
+      this.audioBufferSource.start(0, this.pauseTime);
+
+      this.startTime  = this.audioContext.currentTime - this.pauseTime;
+      this.pauseTime  = 0;
+      this.flags.play = true;
     }
   }
 
+  // TODO: funziona solo la prima volta dopo stop, per qualche motivo
   pause() {
     this.flags.play = false;
+    this.pauseTime  = this.audioContext.currentTime - this.startTime;
 
     this.audioBufferSource?.stop();
     // TODO: salvare tempo di interruzione in startTime (stop non lo segnala e non parrebbe esserci un parametro in audioBufferSource, quindi bisogna cronometrare)
@@ -75,10 +80,15 @@ class Player {
     this.flags.play = false;
 
     this.audioBufferSource?.stop();
-    this.startTime = 0;
+    this.audioBufferSource = null;
+
+    this.rewind();
   }
 
-  rewind() {}
+  rewind() {
+    this.startTime = 0;
+    this.pauseTime = 0;
+  }
 
   clean() {
     this.audioBuffer  = { cur: null, old: null };
@@ -103,6 +113,8 @@ class Player {
 
         this.rec.onstop = async () => {
           this.flags.rec = false;
+
+          this.rewind();
 
           if (this.model.firstRecord) {
             const arrayBuffer = await this.chunks[0].arrayBuffer();

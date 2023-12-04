@@ -31,10 +31,17 @@ class Channel {
     this.gain.gain.value = gain;
   }
 
+  /**
+   * @param {'A' | 'B' | 'C'} slot
+   */
   getEffect(slot) {
     return this.effects[String(slot).trim()];
   }
 
+  /**
+   * @param {'A' | 'B' | 'C'} slot
+   * @param {AudioWorkletNode} effect
+   */
   setEffect(slot, effect) {
     this.player.pause();
 
@@ -44,6 +51,9 @@ class Channel {
     this.player.play();
   }
 
+  /**
+   * @param {'A' | 'B' | 'C'} slot
+   */
   removeEffect(slot) {
     this.setEffect(slot, null);
   }

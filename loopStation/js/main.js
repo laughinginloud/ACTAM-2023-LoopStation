@@ -61,6 +61,7 @@ document.getElementById("pause").addEventListener("click", () => {
 })
 
 document.getElementById("vol").addEventListener("input", () => {
+  // @ts-ignore
   channel.changeGain(Number(document.getElementById("vol").value) / 100);
 })
 
