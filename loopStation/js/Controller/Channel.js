@@ -61,6 +61,5 @@ class Channel {
 }
 
 import { Player } from "./Player.js";
-//import { Filter } from "./Filter.js";
 
 export { Channel };

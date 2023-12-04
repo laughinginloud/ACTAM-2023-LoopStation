@@ -98,4 +98,3 @@ class Filter extends AudioWorkletProcessor {
 registerProcessor('Filter', Filter);
 
 //import { Effect } from "./Effect";
-//export { Filter };

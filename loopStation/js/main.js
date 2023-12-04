@@ -5,7 +5,6 @@ import { View, ChannelHandler, TopBarHandler } from "./View/View";
 
 //import * as Tone from "tone";
 import { initEffects } from "./Controller/Effect";
-//import { Filter }      from "./Controller/Filter";
 
 //{
   //initGui();
@@ -26,7 +25,7 @@ let play = false;
 document.getElementById("test").addEventListener("click", () => {
   if (rec === false) {
     rec = true;
-    controller.channels[0].player.startRecord();
+    controller.channels[0].player.startRecord(controller.channels[0].player.play);
   }
 
   else {

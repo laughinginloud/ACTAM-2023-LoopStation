@@ -36,7 +36,7 @@ class Player {
     }
   }
 
-  play() {
+  play = () => {
     console.log("Play");
     //let audioBufferSourceNode = new AudioBufferSourceNode(this.audioContext, {buffer: this.audioBuffer, loop: true});
     //audioBufferSourceNode.start();
@@ -78,7 +78,7 @@ class Player {
     // Altro?
   }
 
-  startRecord() {
+  startRecord(playBuffer) {
     this.stop();
     this.flags.play = false;
 
@@ -126,8 +126,8 @@ class Player {
           //  this.audioBuffer.copyToChannel(new Float32Array(arrayBuffer[i]), i);
           this.chunks = [];
 
-          // TODO: decidere se spostare la chiamata e delegarla alla view (in tal caso, gestire l'asincronicità di stopRecord e play)
-          this.play();
+          // Esegue il play del buffer solo se la funzione viene effettivamente passata come parametro
+          playBuffer?.();
         };
       });
   }
@@ -152,10 +152,6 @@ class Player {
     let maxDuration = 0;              // Get the maximum length
 
     for (let i = 0; i < n_buffer; i++) {
-    var maxChannels = 0;              // Get the maximum number of channels accros all buffers
-    var maxDuration = 0;              // Get the maximum length
-
-    for (var i = 0; i < n_buffer; i++) {
         if (buffers[i].numberOfChannels > maxChannels) {  //TODO: i buffer che creiamo hanno solo un channel idk perché
             maxChannels = buffers[i].numberOfChannels;
         }
