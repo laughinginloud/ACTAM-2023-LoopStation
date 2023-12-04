@@ -107,11 +107,11 @@ class Player {
             const arrayBuffer = await this.chunks[0].arrayBuffer();
             this.audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
             //console.log('curr buffer', this.audioBuffer);
-            this.audioBuffer = await this.overdub([prevRecordings, this.audioBuffer]);
+            this.audioBuffer = this.overdub([prevRecordings, this.audioBuffer]);
             //console.log('merged', this.audioBuffer)
           }
-          
-          
+
+
           // TODO: attualmente il blob diventa il nuovo buffer, ma bisogna fare il mix con quello vecchio (si può usare come appoggio per mantenere i vecchi dati il buffer "old")
 
           //let bufferData = this.audioBuffer.getChannelData(0);
@@ -147,8 +147,11 @@ class Player {
   */
 
   overdub(buffers) {
+    let n_buffer = buffers.length;
+    let maxChannels = 0;              // Get the maximum number of channels accros all buffers
+    let maxDuration = 0;              // Get the maximum length
 
-    var n_buffer = buffers.length;    
+    for (let i = 0; i < n_buffer; i++) {
     var maxChannels = 0;              // Get the maximum number of channels accros all buffers
     var maxDuration = 0;              // Get the maximum length
 
@@ -161,16 +164,16 @@ class Player {
         }
     }
 
-    var mixed = this.audioContext.createBuffer(maxChannels, this.audioContext.sampleRate * maxDuration, this.audioContext.sampleRate);        
+    let mixed = this.audioContext.createBuffer(maxChannels, this.audioContext.sampleRate * maxDuration, this.audioContext.sampleRate);
 
-    for (var j=0; j<n_buffer; j++){
+    for (let j=0; j<n_buffer; j++){
 
         // For each channel contained in a buffer...
-        for (var ch = 0; ch < buffers[j].numberOfChannels; ch++) {
-            var output = mixed.getChannelData(ch);                    // Get the channel we will mix into
-            var input = buffers[j].getChannelData(ch);                // Get the channel we want to mix in
+        for (let ch = 0; ch < buffers[j].numberOfChannels; ch++) {
+            let output = mixed.getChannelData(ch);                    // Get the channel we will mix into
+            let input = buffers[j].getChannelData(ch);                // Get the channel we want to mix in
 
-            for (var i = 0; i < input.length; i++) {
+            for (let i = 0; i < input.length; i++) {
                 output[i] += input[i];                                // Calculate the new value for each index of the buffer array
             }
         }
