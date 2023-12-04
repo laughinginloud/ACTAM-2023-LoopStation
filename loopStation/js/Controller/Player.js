@@ -1,5 +1,8 @@
 class Player {
   audioContext;
+  /**
+   * @type {{ cur: AudioBuffer; old: AudioBuffer; }}
+   */
   audioBuffer;
   model;
   channel;
@@ -11,6 +14,8 @@ class Player {
 
   rec;     // TODO: Rename me, please!
   chunks;  // TODO: Rename me, please!
+
+  undoable; // TODO: Rename me, please!
 
   flags;
 
@@ -28,6 +33,8 @@ class Player {
 
     this.startTime = 0;
 
+    this.undoable = false;
+
     this.channel = channel;
 
     this.flags = {
@@ -36,6 +43,7 @@ class Player {
     }
   }
 
+  // È una lambda così che 'this' sia sempre riferito al proprio Player
   play = () => {
     console.log("Play");
     //let audioBufferSourceNode = new AudioBufferSourceNode(this.audioContext, {buffer: this.audioBuffer, loop: true});
@@ -45,9 +53,9 @@ class Player {
     this.flags.play = true;
 
     // TODO: null-check (causa: pressione undo quando il canale è vuoto)
-    if (this.audioBuffer) {
+    if (this.audioBuffer.cur) {
       this.audioBufferSource = this.audioContext.createBufferSource();
-      this.audioBufferSource.buffer = this.audioBuffer;
+      this.audioBufferSource.buffer = this.audioBuffer.cur;
       this.audioBufferSource.playbackRate.value = 1;
       this.audioBufferSource.loop = true;
       this.channel.connectPlayer(this.audioBufferSource);
@@ -73,8 +81,9 @@ class Player {
   rewind() {}
 
   clean() {
+    this.audioBuffer  = { cur: null, old: null };
     //this.audioBuffer  = { cur: new AudioBuffer(this.model.bufferLength, this.model.bufferNumberOfChannels, this), old: null };
-    this.audioBufferSource = null;
+    //this.audioBufferSource = null;
     // Altro?
   }
 
@@ -97,22 +106,20 @@ class Player {
 
           if (this.model.firstRecord) {
             const arrayBuffer = await this.chunks[0].arrayBuffer();
-            this.audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
+            this.audioBuffer.cur = await this.audioContext.decodeAudioData(arrayBuffer);
             this.model.firstRecord = false;
           }
 
           else {
-            let prevRecordings = this.audioBuffer;
+            this.audioBuffer.old = this.audioBuffer.cur;
+            let prevRecordings = this.audioBuffer.cur;
             //console.log('prev buffer', prevRecordings);
             const arrayBuffer = await this.chunks[0].arrayBuffer();
-            this.audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
+            this.audioBuffer.cur = await this.audioContext.decodeAudioData(arrayBuffer);
             //console.log('curr buffer', this.audioBuffer);
-            this.audioBuffer = this.overdub([prevRecordings, this.audioBuffer]);
+            this.audioBuffer.cur = this.overdub([prevRecordings, this.audioBuffer.cur]);
             //console.log('merged', this.audioBuffer)
           }
-
-
-          // TODO: attualmente il blob diventa il nuovo buffer, ma bisogna fare il mix con quello vecchio (si può usare come appoggio per mantenere i vecchi dati il buffer "old")
 
           //let bufferData = this.audioBuffer.getChannelData(0);
           //for (let i=0; i<bufferData.length; i++) {
@@ -125,6 +132,8 @@ class Player {
           //for (let i = 0; i < this.model.bufferNumberOfChannels; ++i)
           //  this.audioBuffer.copyToChannel(new Float32Array(arrayBuffer[i]), i);
           this.chunks = [];
+
+          this.undoable = true;
 
           // Esegue il play del buffer solo se la funzione viene effettivamente passata come parametro
           playBuffer?.();
@@ -182,10 +191,18 @@ class Player {
     this.rec?.stop();
   }
 
-  undo() {
-    this.stop();
-    this.audioBuffer = { cur: this.audioBuffer.old, old: this.audioBuffer.old }; // TODO: attualmente un solo buffer, aggiungere il secondo
-    this.play();
+  // È una lambda così che 'this' sia sempre riferito al proprio Player
+  undo = () => {
+    if (this.undoable) {
+      this.stop();
+      this.audioBuffer = { cur: this.audioBuffer.old, old: null };
+      this.play();
+
+      this.undoable = false;
+
+      if (this.audioBuffer.cur == null)
+        this.model.firstRecord = true;
+    }
   }
 }
 
