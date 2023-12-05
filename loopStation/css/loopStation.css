@@ -262,7 +262,7 @@ body {
 #knob {
   position: absolute;
   background-repeat: no-repeat;
-  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/knob_Base.png");
+  background-image: url("../img/knob_Base.png");
   background-size: cover;
   width: 110px;
   height: 110px;
@@ -272,7 +272,7 @@ body {
 }
 
 #knob {
-  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/knob_Spinner.png");
+  background-image: url("../img/knob_Spinner.png");
   z-index: 1;
   top: 0px;
   left: 0px;
@@ -283,7 +283,7 @@ body {
 #eff_parameters {
   position: absolute;
   background-repeat: no-repeat;
-  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/knob_Base.png");
+  background-image: url("../img/knob_Base.png");
   background-size: cover;
   width: 80px;
   height: 80px;
@@ -293,7 +293,7 @@ body {
 }
 
 #eff_parameters {
-  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/knob_Spinner.png");
+  background-image: url("../img/knob_Spinner.png");
   z-index: 1;
   top: 0px;
   left: 0px;
