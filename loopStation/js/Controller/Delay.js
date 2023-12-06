@@ -20,7 +20,7 @@ class Delay extends Effect {
     super["processor"] = new AudioWorkletProcessor(this.handler);
   }
 
-  handler() {
+  handler = () => {
     // TODO: delay
   }
 }

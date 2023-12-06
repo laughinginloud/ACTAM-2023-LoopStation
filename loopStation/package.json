@@ -1,18 +1,21 @@
 {
-  "name": " ",
+  "name": "loop-station",
   "version": "0.0.1",
   "description": "",
-  "keywords": "",
   "license": "",
   "author": "",
+  "source": "js/main.js",
   "scripts": {
     "build": "parcel build index.html",
     "dev": "parcel index.html --open",
     "start": "npm run build && npm run dev"
   },
+  "dependencies": {
+    "gsap": "latest",
+    "parcel": "latest",
+    "tone": "latest"
+  },
   "devDependencies": {
-    "parcel-bundler": "^1.12.4",
-    "tone": "^14.7.77",
-    "gsap": "^3.12.2"
+    "@parcel/transformer-worklet": "latest"
   }
 }

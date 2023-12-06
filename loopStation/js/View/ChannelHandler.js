@@ -7,10 +7,10 @@ class ChannelHandler {
     this.player = player;
     this.recording = false;
 
-    document.getElementById("").addEventListener("click", this.recordPlayButtonHandler); // TODO: id elemento
+    //document.getElementById("").addEventListener("click", this.recordPlayButtonHandler); // TODO: id elemento
   }
 
-  recordPlayButtonHandler() {
+  recordPlayButtonHandler = () => {
     if (this.recording) {
       this.player.stopRecord();
       this.player.play();

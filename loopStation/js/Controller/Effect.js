@@ -1,19 +1,39 @@
-class Effect {
-  processor;
-  mainParam;
-  params;
+//class Effect extends AudioWorkletNode {
+//  processor;
+//  mainParam;
+//  params;
+//
+//  //constructor(audioContext) {
+//  //  super(audioContext);
+//  //
+//  //  this.processor = null;
+//  //  this.mainParam = null;
+//  //  this.params    = null;
+//  //}
+//
+//  modifyMainParam(value) {
+//    this.mainParam = parseInt(value);
+//  }
+//
+//  modifyParam(value, param) {
+//    this.params[param] = parseInt(value);
+//  }
+//
+//  getNode = () {
+//    return this.processor;
+//  }
+//
+//  disconnect = () {
+//    this.processor.disconnect();
+//  }
+//}
 
-  constructor() {
-    this.processor = null;
-    this.mainParam = null;
-    this.params    = null;
-  }
+// @ts-ignore
+import filterUrl from "worklet:./Filter.js";
 
-  modifyMainParam(value) {
-    this.mainParam = parseInt(value);
-  }
-
-  modifyParam(value, param) {
-    this.params[param] = parseInt(value);
-  }
+function initEffects(audioContext) {
+  audioContext.audioWorklet.addModule(filterUrl);
 }
+
+//export { Effect, initEffects };
+export { initEffects };
