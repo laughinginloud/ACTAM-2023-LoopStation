@@ -16,7 +16,7 @@ class Controller {
     }
   }
 
-  getChannel(n) {
+  getChannel = n => {
     return this.channels[n];
   }
 

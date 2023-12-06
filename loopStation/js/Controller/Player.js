@@ -67,7 +67,7 @@ class Player {
   }
 
   // TODO: funziona solo la prima volta dopo stop, per qualche motivo
-  pause() {
+  pause = () => {
     this.flags.play = false;
     this.pauseTime  = this.audioContext.currentTime - this.startTime;
 
@@ -76,7 +76,7 @@ class Player {
     // Per cronometro: https://stackoverflow.com/questions/31644060/how-can-i-get-an-audiobuffersourcenodes-current-time
   }
 
-  stop() {
+  stop = () => {
     this.flags.play = false;
 
     this.audioBufferSource?.stop();
@@ -85,19 +85,20 @@ class Player {
     this.rewind();
   }
 
-  rewind() {
+  rewind = () => {
     this.startTime = 0;
     this.pauseTime = 0;
   }
 
-  clean() {
+  clean = () => {
     this.audioBuffer  = { cur: null, old: null };
+    this.undoable = false;
     //this.audioBuffer  = { cur: new AudioBuffer(this.model.bufferLength, this.model.bufferNumberOfChannels, this), old: null };
     //this.audioBufferSource = null;
     // Altro?
   }
 
-  startRecord(playBuffer) {
+  startRecord = playBuffer => {
     this.stop();
     this.flags.play = false;
 
@@ -153,21 +154,7 @@ class Player {
       });
   }
 
-  /*
-  overdub(prev, curr) {
-    console.log('into overdub function');
-    for (let i = 0; i < this.model.numberOfChannels; i++) {
-      let output = prev.getChannelData(j);
-      let input = curr.getChannelData(j);
-      for (let j = 0; j < this.model.bufferLength; j++) {
-        output[j] += input[j];
-      }
-    }
-    return prev;
-  }
-  */
-
-  overdub(buffers) {
+  overdub = buffers => {
     let n_buffer = buffers.length;
     let maxChannels = 0;              // Get the maximum number of channels accros all buffers
     let maxDuration = 0;              // Get the maximum length
@@ -199,7 +186,7 @@ class Player {
     return mixed;
 }
 
-  stopRecord() {
+  stopRecord = () => {
     this.rec?.stop();
   }
 

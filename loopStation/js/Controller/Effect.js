@@ -19,11 +19,11 @@
 //    this.params[param] = parseInt(value);
 //  }
 //
-//  getNode() {
+//  getNode = () {
 //    return this.processor;
 //  }
 //
-//  disconnect() {
+//  disconnect = () {
 //    this.processor.disconnect();
 //  }
 //}

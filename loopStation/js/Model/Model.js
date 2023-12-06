@@ -8,7 +8,7 @@ class Model {
 
   constructor() {}
 
-  getBufferOptions() {
+  getBufferOptions = () => {
     return {
       length: this.bufferLength,
       numberOfChannels: this.bufferNumberOfChannels,
@@ -16,7 +16,7 @@ class Model {
     };
   }
 
-  setBufferLength(length) {
+  setBufferLength = length => {
     this.bufferLength = length;
     this.firstRecord = false;
   }

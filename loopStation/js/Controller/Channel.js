@@ -23,18 +23,18 @@ class Channel {
     this.player = new Player(this.audioContext, model, this);
   }
 
-  getPlayer() {
+  getPlayer = () => {
     return this.player;
   }
 
-  changeGain(gain) {
+  changeGain = gain => {
     this.gain.gain.value = gain;
   }
 
   /**
    * @param {'A' | 'B' | 'C'} slot
    */
-  getEffect(slot) {
+  getEffect = slot => {
     return this.effects[String(slot).trim()];
   }
 
@@ -42,7 +42,7 @@ class Channel {
    * @param {'A' | 'B' | 'C'} slot
    * @param {AudioWorkletNode} effect
    */
-  setEffect(slot, effect) {
+  setEffect = (slot, effect) => {
     this.player.pause();
 
     this.effects[String(slot).trim()] = effect;
@@ -54,15 +54,15 @@ class Channel {
   /**
    * @param {'A' | 'B' | 'C'} slot
    */
-  removeEffect(slot) {
+  removeEffect = slot => {
     this.setEffect(slot, null);
   }
 
-  connectPlayer(audioBufferSourceNode) {
+  connectPlayer = audioBufferSourceNode => {
     audioBufferSourceNode.connect(this.audioChain);
   }
 
-  rebuildChain() {
+  rebuildChain = () => {
     this.audioChain = this.gain;
 
     // Costruisce la catena a partire dalla fine
