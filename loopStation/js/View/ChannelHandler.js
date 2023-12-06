@@ -1,23 +1,23 @@
 class ChannelHandler {
-  player;
-  recording;
+  channel;
+  flags;
   recordPlayButton;
 
-  constructor(player) {
-    this.player = player;
-    this.recording = false;
+  constructor(channel, index) {
+    this.channel = channel;
+    this.flags   = channel.player.flags;
 
-    //document.getElementById("").addEventListener("click", this.recordPlayButtonHandler); // TODO: id elemento
+    document.getElementById("rec" + index).addEventListener("click", this.recordPlayButtonHandler);
+    document.getElementById("vol" + index).children[0].addEventListener("input", () =>
+      channel.changeGain(Number(document.getElementById("vol" + index).children[0].value) / 100))
   }
 
   recordPlayButtonHandler = () => {
-    if (this.recording) {
-      this.player.stopRecord();
-      this.player.play();
-    }
+    if (this.flags.rec)
+      this.channel.player.stopRecord();
 
     else
-      this.player.startRecord();
+      this.channel.player.startRecord(this.channel.player.play);
   }
 }
 

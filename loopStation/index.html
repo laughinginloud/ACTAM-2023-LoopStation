@@ -1,27 +1,77 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en-gb">
+  <head>
+    <meta charset="utf-8" />
+    <title>Loop Station</title>
 
-<head>
-  <meta charset="utf-8">
-  <title></title>
+    <link rel="stylesheet" href="css/loopStation.css" />
 
-  <!-- <link rel="stylesheet" href="css/normalize.css"> -->
-  <!-- <link rel="stylesheet" href="css/main.css"> -->
-  <link rel="stylesheet" href="css/loopStation.css">
+    <script type="module" src="js/main.js"></script>
+  </head>
 
-  <!-- <meta name="theme-color" content="#fafafa"> -->
+  <body>
+    <!-- <button id="test">Test</button> -->
 
-  <script type="module" src="js/main.js"></script>
-</head>
-
-<body>
-  <!-- <audio loop="loop" id="audioElement" controls></audio><br> -->
-  <button id="test">rec/start</button><br>
-  <button id="startStop">start/stop</button><br>
-  <button id="pause">pause/play</button><br>
-  <button id="undo">undo</button><br>
-  <input type="range" min="0" max="100" value="100" id="vol"><br>
-  <button id="filter">filter</button>
-</body>
-
+    <div id="loop_station">
+      <div id="global_controls">
+        <div id="knobBG"><div id="knob"></div></div>
+        <div class="console_control" id="global_sp">⏵/⏸</div>
+        <div class="console_control" id="clear_last">CLEAR LAST</div>
+        <div class="console_control" id="global_clear">CLEAR</div>
+        <textarea id="control_panel" name="control_panel" rows="3" cols="50">benvenuti hdudbeidebdhgiudcviyfgfugfuvguvgfuvgfuvgfuv</textarea>
+        <div class="menu_scroll" id="previous">◄</div>
+        <div class="menu_scroll" id="next">►</div>
+        <div class="menu_scroll" id="select">✓</div>
+        <div id="knobSM"><div id="eff_parameters"></div></div>
+        <div class="effect" id="effA">A</div>
+        <div class="effect" id="effB">B</div>
+        <div class="effect" id="effC">C</div>
+        <div class="module" id="mod_1">
+          <div class="edit dispari" id="ed1">EDIT</div>
+          <div class="clear_module odd" id="clear1">CLEAR</div>
+          <div class="sp_button" id="sp1">⏵/⏸</div>
+          <div class="volume" id="vol1">
+            <input type="range" id="points" name="points" min="0" max="100" value="80" />
+          </div>
+          <div class="rec_button" id="rec1">⏵/⏺︎</div>
+        </div>
+        <div class="module" id="mod_2">
+          <div class="edit" id="ed2">EDIT</div>
+          <div class="clear_module" id="clear2">CLEAR</div>
+          <div class="sp_button even" id="sp2">⏵/⏸</div>
+          <div class="volume" id="vol2">
+            <input type="range" id="points" name="points" min="0" max="100" value="80" />
+          </div>
+          <div class="rec_button" id="rec2">⏵/⏺︎</div>
+        </div>
+        <div class="module" id="mod_3">
+          <div class="edit dispari" id="ed3">EDIT</div>
+          <div class="clear_module odd" id="clear3">CLEAR</div>
+          <div class="sp_button" id="sp3">⏵/⏸</div>
+          <div class="volume" id="vol3">
+            <input type="range" id="points" name="points" min="0" max="100" value="80" />
+          </div>
+          <div class="rec_button" id="rec3">⏵/⏺︎</div>
+        </div>
+        <div class="module" id="mod_4">
+          <div class="edit" id="ed4">EDIT</div>
+          <div class="clear_module" id="clear4">CLEAR</div>
+          <div class="sp_button even" id="sp4">⏵/⏸</div>
+          <div class="volume" id="vol4">
+            <input type="range" id="points" name="points" min="0" max="100" value="80" />
+          </div>
+          <div class="rec_button" id="rec4">⏵/⏺︎</div>
+        </div>
+        <div class="module" id="mod_5">
+          <div class="edit dispari" id="ed5">EDIT</div>
+          <div class="clear_module odd" id="clear5">CLEAR</div>
+          <div class="sp_button" id="sp5">⏵/⏸</div>
+          <div class="volume" id="vol5">
+            <input type="range" id="points" name="points" min="0" max="100" value="80" />
+          </div>
+          <div class="rec_button" id="rec5">⏵/⏺︎</div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

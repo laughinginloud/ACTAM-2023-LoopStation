@@ -22,7 +22,9 @@ class Player {
   startTime;
   pauseTime;
 
-  constructor(audioContext, model, channel) {
+  index;
+
+  constructor(audioContext, model, channel, index) {
     this.audioContext = audioContext;
     this.model = model;
     this.clean();
@@ -42,6 +44,8 @@ class Player {
       play: false,
       rec: false
     }
+
+    this.index = index;
   }
 
   // È una lambda così che 'this' sia sempre riferito al proprio Player
@@ -117,10 +121,10 @@ class Player {
 
           this.rewind();
 
-          if (this.model.firstRecord) {
+          if (this.model.firstRecord[this.index]) {
             const arrayBuffer = await this.chunks[0].arrayBuffer();
             this.audioBuffer.cur = await this.audioContext.decodeAudioData(arrayBuffer);
-            this.model.firstRecord = false;
+            this.model.firstRecord[this.index] = false;
           }
 
           else {
@@ -200,7 +204,7 @@ class Player {
       this.undoable = false;
 
       if (this.audioBuffer.cur == null)
-        this.model.firstRecord = true;
+        this.model.firstRecord[this.index] = true;
     }
   }
 }

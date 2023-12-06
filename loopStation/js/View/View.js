@@ -14,7 +14,7 @@ class View {
     this.channel = new Array(this.model.numChannels);
 
     for (let i = 0; i < this.model.numChannels; ++i) {
-      this.channel[i] = new ChannelHandler();
+      this.channel[i] = new ChannelHandler(controller.channels[i], i + 1);
     }
   }
 }

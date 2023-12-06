@@ -12,7 +12,7 @@ class Controller {
     this.channels = new Array(this.model.numChannels);
 
     for (let i = 0; i < this.model.numChannels; ++i) {
-      this.channels[i] = new Channel(this.audioContext, this.model);
+      this.channels[i] = new Channel(this.audioContext, this.model, i);
     }
   }
 

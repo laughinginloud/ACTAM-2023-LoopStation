@@ -4,9 +4,14 @@ class Model {
   bufferLength = 256;
   bufferNumberOfChannels = 2;
   bufferSampleRate = 44100;
-  firstRecord = true;
+  firstRecord;
 
-  constructor() {}
+  constructor() {
+    this.firstRecord = new Array(this.numChannels);
+
+    for (let i = 0; i < this.numChannels; ++i)
+      this.firstRecord[i] = true;
+  }
 
   getBufferOptions = () => {
     return {
@@ -16,10 +21,10 @@ class Model {
     };
   }
 
-  setBufferLength = length => {
-    this.bufferLength = length;
-    this.firstRecord = false;
-  }
+  //setBufferLength = length => {
+  //  this.bufferLength = length;
+  //  this.firstRecord = false;
+  //}
 }
 
 export { Model };

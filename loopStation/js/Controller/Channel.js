@@ -6,7 +6,7 @@ class Channel {
   effects;
   gain;
 
-  constructor(audioContext, model) {
+  constructor(audioContext, model, index) {
     this.audioContext = audioContext;
 
     this.effects = {
@@ -20,7 +20,7 @@ class Channel {
 
     this.audioChain = this.gain;
 
-    this.player = new Player(this.audioContext, model, this);
+    this.player = new Player(this.audioContext, model, this, index);
   }
 
   getPlayer = () => {
