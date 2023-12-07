@@ -27,14 +27,12 @@ class Player {
   constructor(audioContext, model, channel, index) {
     this.audioContext = audioContext;
     this.model = model;
-    this.clean();
 
-    this.rec = {};
+    this.rec = null;
     this.chunks = [];
 
+    this.audioBuffer = { cur: null, old: null };
     this.audioBufferSource = null;
-
-    this.rewind();
 
     this.undoable = false;
 
@@ -44,6 +42,9 @@ class Player {
       play: false,
       rec: false
     }
+
+    this.startTime = 0;
+    this.pauseTime = 0;
 
     this.index = index;
   }
@@ -81,6 +82,8 @@ class Player {
   }
 
   stop = () => {
+    this.stopRecord();
+
     this.flags.play = false;
 
     this.audioBufferSource?.stop();
@@ -95,11 +98,13 @@ class Player {
   }
 
   clean = () => {
-    this.audioBuffer  = { cur: null, old: null };
+    this.stop();
+    this.audioBuffer = { cur: null, old: null };
+    this.audioBufferSource = null;
     this.undoable = false;
-    //this.audioBuffer  = { cur: new AudioBuffer(this.model.bufferLength, this.model.bufferNumberOfChannels, this), old: null };
-    //this.audioBufferSource = null;
-    // Altro?
+
+    if (this.audioBuffer.cur == null)
+      this.model.firstRecord[this.index] = true;
   }
 
   startRecord = playBuffer => {
@@ -188,7 +193,7 @@ class Player {
     }
 
     return mixed;
-}
+  }
 
   stopRecord = () => {
     this.rec?.stop();

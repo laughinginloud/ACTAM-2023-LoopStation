@@ -3,19 +3,19 @@ class View {
   controller;
 
   topBar;
-  channel;
+  channels;
 
   constructor(model, controller) {
     this.model = model;
     this.controller = controller;
 
-    this.topBar = new TopBarHandler(this.controller);
-
-    this.channel = new Array(this.model.numChannels);
+    this.channels = new Array(this.model.numChannels);
 
     for (let i = 0; i < this.model.numChannels; ++i) {
-      this.channel[i] = new ChannelHandler(controller.channels[i], i + 1);
+      this.channels[i] = new ChannelHandler(controller.channels[i], i + 1);
     }
+
+    this.topBar = new TopBarHandler(this.controller, this.channels);
   }
 }
 
