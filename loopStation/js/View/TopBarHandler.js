@@ -19,19 +19,23 @@ class TopBarHandler {
     let stop = false;
 
     for (const ch of this.channels) {
-      if (ch.player.flags.play || ch.player.flags.rec) {
+      if (ch.channel.player.flags.play || ch.channel.player.flags.rec) {
         stop = true;
         break;
       }
     }
 
     if (stop)
-      for (const ch of this.channels)
-        ch.player.stop();
+      for (const ch of this.channels) {
+        ch.channel.player.stop();
+        document.getElementById("sp" + ch.channelIndex).classList.remove("modifica");
+      }
 
     else
-      for (const ch of this.channels)
-        ch.player.play();
+      for (const ch of this.channels) {
+        ch.channel.player.play();
+        document.getElementById("sp" + ch.channelIndex).classList.add("modifica");
+      }
   }
 }
 
