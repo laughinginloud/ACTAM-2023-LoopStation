@@ -5,15 +5,22 @@ class ChannelHandler {
 
   channelIndex;
 
-  constructor(channel, index) {
+  editMode;
+  editModeHandler;
+
+  constructor(channel, index, editModeHandler) {
     this.channel      = channel;
     this.flags        = channel.player.flags;
     this.channelIndex = index;
 
+    this.editMode        = false;
+    this.editModeHandler = editModeHandler;
+
     document.getElementById("rec" + index).addEventListener("click", this.recordPlayButtonHandler);
     document.getElementById("vol" + index).children[0].addEventListener("input", this.gainHandler);
     document.getElementById("sp" + index).addEventListener("click", this.playPauseButtonHandler);
-    document.getElementById("clear" + index).addEventListener("click", this.clearHandler);
+    document.getElementById("clear" + index).addEventListener("click", this.clearButtonHandler);
+    document.getElementById("ed" + index).addEventListener("click", this.editButtonHandler);
   }
 
   recordPlayButtonHandler = () => {
@@ -52,9 +59,30 @@ class ChannelHandler {
     }
   }
 
-  clearHandler = () => {
+  clearButtonHandler = () => {
     this.channel.player.clean();
     document.getElementById("sp" + this.channelIndex).classList.remove("modifica");
+  }
+
+  editButtonHandler = () => {
+    this.channel.player.stop();
+
+    this.editMode = !this.editMode;
+
+    if (this.editMode) {
+      document.getElementById("ed" + this.channelIndex).classList.add("modifica");
+      this.editModeHandler.enableModeHandler(this);
+    }
+
+    else {
+      document.getElementById("ed" + this.channelIndex).classList.remove("modifica");
+      this.editModeHandler.enableModeHandler(null);
+    }
+  }
+
+  disableEditMode = () => {
+    this.editMode = false;
+    document.getElementById("ed" + this.channelIndex).classList.remove("modifica");
   }
 }
 

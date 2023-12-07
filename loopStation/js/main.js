@@ -1,12 +1,13 @@
-import { initGui } from "./gui"
-import { Model } from "./Model/Model";
-import { Controller, Channel, Player } from "./Controller/Controller";
-import { View, ChannelHandler, TopBarHandler } from "./View/View";
+import { Model }       from "./Model/Model";
+import { Controller }  from "./Controller/Controller";
+import { View }        from "./View/View";
 
-//import * as Tone from "tone";
+import { initGui }     from "./gui"
 import { initEffects } from "./Controller/Effect";
 
-//{
+//import * as Tone from "tone";
+
+{
   initGui();
 
   const model = new Model();
@@ -14,6 +15,7 @@ import { initEffects } from "./Controller/Effect";
   const view = new View(model, controller);
 
   initEffects(controller.audioContext);
-//}
 
-document.body.onclick = () => controller.audioContext.resume();
+  document.body.onclick = () => controller.audioContext.resume();
+}
+

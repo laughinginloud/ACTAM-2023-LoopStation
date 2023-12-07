@@ -96,7 +96,7 @@ function initGui() {
 
   const btnTypes = [
     //document.querySelectorAll(".sp_button"),    // play (attualmente gestito da ChannelHandler)
-    document.querySelectorAll(".edit"),           // edit
+    //document.querySelectorAll(".edit"),         // edit (attualmente gestito da ChannelHandler ed EditModeHandler)
     document.querySelectorAll(".clear_module"),   // clear
     document.querySelectorAll(".effect"),         // effect
     document.querySelectorAll(".console_control") // global
