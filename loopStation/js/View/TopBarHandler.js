@@ -28,13 +28,17 @@ class TopBarHandler {
     if (stop)
       for (const ch of this.channels) {
         ch.channel.player.stop();
-        document.getElementById("sp" + ch.channelIndex).classList.remove("modifica");
+
+        if (!ch.channel.player.flags.play)
+          document.getElementById("sp" + ch.channelIndex).classList.remove("modifica");
       }
 
     else
       for (const ch of this.channels) {
         ch.channel.player.play();
-        document.getElementById("sp" + ch.channelIndex).classList.add("modifica");
+
+        if (ch.channel.player.flags.play)
+          document.getElementById("sp" + ch.channelIndex).classList.add("modifica");
       }
   }
 }
