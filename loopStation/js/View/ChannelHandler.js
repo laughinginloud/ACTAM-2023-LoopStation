@@ -46,7 +46,9 @@ class ChannelHandler {
 
     else if (!this.flags.play) {
       this.channel.player.play();
-      document.getElementById("sp" + this.channelIndex).classList.add("modifica");
+
+      if (this.flags.play)
+        document.getElementById("sp" + this.channelIndex).classList.add("modifica");
     }
   }
 

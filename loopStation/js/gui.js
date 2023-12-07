@@ -94,38 +94,21 @@ function initGui() {
     };
   }
 
-  let play = document.querySelectorAll(".sp_button");
-  let edit = document.querySelectorAll(".edit");
-  let clear = document.querySelectorAll(".clear_module");
-  let effect = document.querySelectorAll(".effect");
-  let global = document.querySelectorAll(".console_control");
+  const btnTypes = [
+    //document.querySelectorAll(".sp_button"),    // play (attualmente gestito da ChannelHandler)
+    document.querySelectorAll(".edit"),           // edit
+    document.querySelectorAll(".clear_module"),   // clear
+    document.querySelectorAll(".effect"),         // effect
+    document.querySelectorAll(".console_control") // global
+  ];
 
   // Aggiungi un evento onclick a ciascun pulsante
-  for (let i = 0; i < play.length; i++) {
-    play[i].onclick = function () {
-      this.classList.toggle("modifica");
-    };
-  }
-  for (let i = 0; i < edit.length; i++) {
-    edit[i].onclick = function () {
-      this.classList.toggle("modifica");
-    };
-  }
-  for (let i = 0; i < clear.length; i++) {
-    clear[i].onclick = function () {
-      this.classList.toggle("modifica");
-    };
-  }
-  for (let i = 0; i < effect.length; i++) {
-    effect[i].onclick = function () {
-      this.classList.toggle("modifica");
-    };
-  }
-  for (let i = 0; i < global.length; i++) {
-    global[i].onclick = function () {
-      this.classList.toggle("modifica");
-    };
-  }
+  for (const type of btnTypes)
+    for (const btn of type)
+      // @ts-ignore
+      btn.onclick = function () {
+        this.classList.toggle("modifica");
+      };
 }
 
 export { initGui };
