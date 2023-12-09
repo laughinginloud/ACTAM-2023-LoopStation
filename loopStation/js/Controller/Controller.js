@@ -24,5 +24,4 @@ class Controller {
 }
 
 import { Channel } from "./Channel.js";
-import { Player }  from "./Player.js";
-export { Controller, Channel, Player };
+export { Controller };

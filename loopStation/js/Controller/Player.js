@@ -8,10 +8,13 @@ class Player {
   channel;
 
   /**
-   * @type {AudioBufferSourceNode}
+   * @type AudioBufferSourceNode
    */
   audioBufferSource;
 
+  /**
+   * @type MediaRecorder
+   */
   rec;     // TODO: Rename me, please!
   chunks;  // TODO: Rename me, please!
 
@@ -49,13 +52,7 @@ class Player {
     this.index = index;
   }
 
-  // È una lambda così che 'this' sia sempre riferito al proprio Player
   play = () => {
-    //console.log("Play");
-    //let audioBufferSourceNode = new AudioBufferSourceNode(this.audioContext, {buffer: this.audioBuffer, loop: true});
-    //audioBufferSourceNode.start();
-    //console.log(this.audioBuffer);
-
     // TODO: null-check (causa: pressione undo quando il canale è vuoto)
     if (this.audioBuffer.cur) {
       this.audioBufferSource = this.audioContext.createBufferSource();
@@ -135,25 +132,15 @@ class Player {
           else {
             this.audioBuffer.old = this.audioBuffer.cur;
             let prevRecordings = this.audioBuffer.cur;
-            //console.log('prev buffer', prevRecordings);
             const arrayBuffer = await this.chunks[0].arrayBuffer();
             this.audioBuffer.cur = await this.audioContext.decodeAudioData(arrayBuffer);
-            //console.log('curr buffer', this.audioBuffer);
             this.audioBuffer.cur = this.overdub([prevRecordings, this.audioBuffer.cur]);
-            //console.log('merged', this.audioBuffer)
           }
 
-          //let bufferData = this.audioBuffer.getChannelData(0);
-          //for (let i=0; i<bufferData.length; i++) {
-          //  console.log(arrayBuffer.data[i]);
-          //  bufferData[i] = arrayBuffer[i];
-          //}
-
-          //this.audioBuffer.copyToChannel(new Float32Array(arrayBuffer), 0);
           // TODO: stereo
-          //for (let i = 0; i < this.model.bufferNumberOfChannels; ++i)
-          //  this.audioBuffer.copyToChannel(new Float32Array(arrayBuffer[i]), i);
+
           this.chunks = [];
+          this.rec    = null;
 
           this.undoable = true;
 
@@ -164,9 +151,9 @@ class Player {
   }
 
   overdub = buffers => {
-    let n_buffer = buffers.length;
-    let maxChannels = 0;              // Get the maximum number of channels accros all buffers
-    let maxDuration = 0;              // Get the maximum length
+    const n_buffer    = buffers.length;
+    let   maxChannels = 0;              // Get the maximum number of channels across all buffers
+    let   maxDuration = 0;              // Get the maximum length
 
     for (let i = 0; i < n_buffer; i++) {
         if (buffers[i].numberOfChannels > maxChannels) {  //TODO: i buffer che creiamo hanno solo un channel idk perché
@@ -179,16 +166,14 @@ class Player {
 
     let mixed = this.audioContext.createBuffer(maxChannels, this.audioContext.sampleRate * maxDuration, this.audioContext.sampleRate);
 
-    for (let j=0; j<n_buffer; j++){
-
+    for (let j = 0; j < n_buffer; j++){
         // For each channel contained in a buffer...
         for (let ch = 0; ch < buffers[j].numberOfChannels; ch++) {
             let output = mixed.getChannelData(ch);                    // Get the channel we will mix into
             let input = buffers[j].getChannelData(ch);                // Get the channel we want to mix in
 
-            for (let i = 0; i < input.length; i++) {
+            for (let i = 0; i < input.length; i++)
                 output[i] += input[i];                                // Calculate the new value for each index of the buffer array
-            }
         }
     }
 
@@ -199,7 +184,6 @@ class Player {
     this.rec?.stop();
   }
 
-  // È una lambda così che 'this' sia sempre riferito al proprio Player
   undo = () => {
     if (this.undoable) {
       this.stop();

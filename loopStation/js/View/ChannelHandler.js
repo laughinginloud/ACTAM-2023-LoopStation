@@ -17,7 +17,7 @@ class ChannelHandler {
     this.editModeHandler = editModeHandler;
 
     document.getElementById("rec" + index).addEventListener("click", this.recordPlayButtonHandler);
-    document.getElementById("vol" + index).children[0].addEventListener("input", this.gainHandler);
+    document.getElementById("points" + index).addEventListener("input", this.gainHandler);
     document.getElementById("sp" + index).addEventListener("click", this.playPauseButtonHandler);
     document.getElementById("clear" + index).addEventListener("click", this.clearButtonHandler);
     document.getElementById("ed" + index).addEventListener("click", this.editButtonHandler);
@@ -37,7 +37,7 @@ class ChannelHandler {
 
   gainHandler = () => {
     // @ts-ignore
-    this.channel.changeGain(Number(document.getElementById("vol" + this.channelIndex).children[0].value) / 100)
+    this.channel.changeGain(Number(document.getElementById("points" + this.channelIndex).value) / 100)
   }
 
   playPauseButtonHandler = () => {

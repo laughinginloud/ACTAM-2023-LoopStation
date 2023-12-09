@@ -5,10 +5,10 @@ gsap.registerPlugin(Draggable);
 
 function initGui() {
   const editButtons = document.querySelectorAll(".menu_scroll");
-  const textbox = document.getElementById("control_panel");
+  const textbox     = document.getElementById("control_panel");
 
-  let knob = document.getElementById("knob");
-  let knob1 = document.getElementById("eff_parameters");
+  const knob  = document.getElementById("knob");
+  const knob1 = document.getElementById("eff_parameters");
 
   let effetti = {
     RIVERBERO: "RIVERBERO\nparam1: 0\nparam2: 0",
@@ -22,8 +22,8 @@ function initGui() {
     CHORUS: { knob: 0, knob1: 0 },
   };
 
-  let keys = Object.keys(effetti); // Ottieni le chiavi dell'oggetto effetti
-  let index = 0;
+  const keys  = Object.keys(effetti); // Ottieni le chiavi dell'oggetto effetti
+  let   index = 0;
 
   // Ottenere il riferimento ai pulsanti previous, next e select
   const previousButton = document.getElementById("previous");
@@ -84,20 +84,15 @@ function initGui() {
     textbox.value = effetti[keys[index]];
   });
 
-  let buttons = document.querySelectorAll(".rec_button");
-
   // Aggiungi un evento onclick a ciascun pulsante
-  for (let i = 0; i < buttons.length; i++) {
-    buttons[i].onclick = function () {
-      // Aggiungi la classe 'pl' al pulsante cliccato
-      this.classList.toggle("recording_mode");
-    };
-  }
+  for (const btn of document.querySelectorAll(".rec_button"))
+    btn.addEventListener("click", () =>
+      btn.classList.toggle("recording_mode"));
 
   const btnTypes = [
-    //document.querySelectorAll(".sp_button"),    // play (attualmente gestito da ChannelHandler)
-    //document.querySelectorAll(".edit"),         // edit (attualmente gestito da ChannelHandler ed EditModeHandler)
-    document.querySelectorAll(".clear_module"),   // clear
+    //document.querySelectorAll(".sp_button"),    // play  (attualmente gestito da ChannelHandler)
+    //document.querySelectorAll(".edit"),         // edit  (attualmente gestito da ChannelHandler ed EditModeHandler)
+    //document.querySelectorAll(".clear_module"), // clear (perché è un toggle?)
     document.querySelectorAll(".effect"),         // effect
     document.querySelectorAll(".console_control") // global
   ];
@@ -105,10 +100,8 @@ function initGui() {
   // Aggiungi un evento onclick a ciascun pulsante
   for (const type of btnTypes)
     for (const btn of type)
-      // @ts-ignore
-      btn.onclick = function () {
-        this.classList.toggle("modifica");
-      };
+      btn.addEventListener("click", () =>
+        btn.classList.toggle("modifica"));
 }
 
 export { initGui };
