@@ -68,14 +68,11 @@ class Player {
     }
   }
 
-  // TODO: funziona solo la prima volta dopo stop, per qualche motivo
   pause = () => {
     this.flags.play = false;
-    this.pauseTime  = this.audioContext.currentTime - this.startTime;
+    this.pauseTime  = (this.audioContext.currentTime - this.startTime) % this.audioBuffer.cur.duration;
 
     this.audioBufferSource?.stop();
-    // TODO: salvare tempo di interruzione in startTime (stop non lo segnala e non parrebbe esserci un parametro in audioBufferSource, quindi bisogna cronometrare)
-    // Per cronometro: https://stackoverflow.com/questions/31644060/how-can-i-get-an-audiobuffersourcenodes-current-time
   }
 
   stop = () => {
