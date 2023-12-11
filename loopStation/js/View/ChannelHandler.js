@@ -5,6 +5,8 @@ class ChannelHandler {
 
   channelIndex;
 
+  topBarHandler;
+
   editMode;
   editModeHandler;
 
@@ -13,25 +15,35 @@ class ChannelHandler {
     this.flags        = channel.player.flags;
     this.channelIndex = index;
 
+    this.topBarHandler = null;
+
     this.editMode        = false;
     this.editModeHandler = editModeHandler;
 
-    document.getElementById("rec" + index).addEventListener("click", this.recordPlayButtonHandler);
+    document.getElementById("rec"    + index).addEventListener("click", this.recordPlayButtonHandler);
     document.getElementById("points" + index).addEventListener("input", this.gainHandler);
-    document.getElementById("sp" + index).addEventListener("click", this.playPauseButtonHandler);
-    document.getElementById("clear" + index).addEventListener("click", this.clearButtonHandler);
-    document.getElementById("ed" + index).addEventListener("click", this.editButtonHandler);
+    document.getElementById("sp"     + index).addEventListener("click", this.playPauseButtonHandler);
+    document.getElementById("clear"  + index).addEventListener("click", this.clearButtonHandler);
+    document.getElementById("ed"     + index).addEventListener("click", this.editButtonHandler);
+  }
+
+  registerTopBarHandler = handler => {
+    this.topBarHandler = handler;
   }
 
   recordPlayButtonHandler = () => {
     if (this.flags.rec) {
       this.channel.player.stopRecord();
       document.getElementById("sp" + this.channelIndex).classList.add("modifica");
+
+      this.topBarHandler.notifyPlay(this.channelIndex);
     }
 
     else {
       this.channel.player.startRecord(this.channel.player.play);
       document.getElementById("sp" + this.channelIndex).classList.remove("modifica");
+
+      this.topBarHandler.notifyPause(this.channelIndex);
     }
   }
 
@@ -44,24 +56,33 @@ class ChannelHandler {
     if (this.flags.rec) {
       this.channel.player.stopRecord();
       document.getElementById("sp" + this.channelIndex).classList.add("modifica");
+
+      this.topBarHandler.notifyPlay(this.channelIndex);
     }
 
     else if (this.flags.play) {
       this.channel.player.pause();
       document.getElementById("sp" + this.channelIndex).classList.remove("modifica");
+
+      this.topBarHandler.notifyPause(this.channelIndex);
     }
 
     else if (!this.flags.play) {
       this.channel.player.play();
 
-      if (this.flags.play)
+      if (this.flags.play) {
         document.getElementById("sp" + this.channelIndex).classList.add("modifica");
+
+        this.topBarHandler.notifyPlay(this.channelIndex);
+      }
     }
   }
 
   clearButtonHandler = () => {
     this.channel.player.clean();
     document.getElementById("sp" + this.channelIndex).classList.remove("modifica");
+
+    this.topBarHandler.notifyPause(this.channelIndex);
   }
 
   editButtonHandler = () => {

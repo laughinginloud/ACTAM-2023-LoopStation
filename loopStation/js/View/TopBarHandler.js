@@ -2,30 +2,25 @@ class TopBarHandler {
   controller;
   channels;
 
+  playing;
+
   constructor(controller, channels) {
     this.controller = controller;
     this.channels   = channels;
 
-    document.getElementById("global_clear").addEventListener("click", this.clearHandler);
-    document.getElementById("global_sp").addEventListener("click", this.playPauseHandler);
+    this.playing = new Array(channels.length).fill(false);
+
+    document.getElementById("global_clear").addEventListener("click", this.clearButtonHandler);
+    document.getElementById("global_sp")   .addEventListener("click", this.playPauseHandler);
   }
 
-  clearHandler = () => {
+  clearButtonHandler = () => {
     for (const ch of this.channels)
-      ch.clearHandler();
+      ch.clearButtonHandler();
   }
 
   playPauseHandler = () => {
-    let stop = false;
-
-    for (const ch of this.channels) {
-      if (ch.channel.player.flags.play || ch.channel.player.flags.rec) {
-        stop = true;
-        break;
-      }
-    }
-
-    if (stop)
+    if (this.channels.some(ch => ch.channel.player.flags.play || ch.channel.player.flags.rec))
       for (const ch of this.channels) {
         ch.channel.player.stop();
 
@@ -40,6 +35,18 @@ class TopBarHandler {
         if (ch.channel.player.flags.play)
           document.getElementById("sp" + ch.channelIndex).classList.add("modifica");
       }
+  }
+
+  notifyPlay = index => {
+    this.playing[index - 1] = true;
+    document.getElementById("global_sp").classList.add("modifica");
+  }
+
+  notifyPause = index => {
+    this.playing[index - 1] = false;
+
+    if (!this.playing.some(Boolean))
+      document.getElementById("global_sp").classList.remove("modifica");
   }
 }
 

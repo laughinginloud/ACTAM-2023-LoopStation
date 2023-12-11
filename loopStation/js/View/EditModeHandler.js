@@ -1,7 +1,8 @@
 class EditModeHandler {
   currentChannel;
 
-  // TODO: disabilitare i pulsanti dei canali se in edit mode?
+  // TODO: disabilitare il record del canale se in modalità edit
+  // TODO: disabilitare i pulsanti degli effetti se non in edit mode
 
   constructor() {
     this.currentChannel = null;
