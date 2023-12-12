@@ -25,6 +25,7 @@ class ChannelHandler {
     document.getElementById("sp"     + index).addEventListener("click", this.playPauseButtonHandler);
     document.getElementById("clear"  + index).addEventListener("click", this.clearButtonHandler);
     document.getElementById("ed"     + index).addEventListener("click", this.editButtonHandler);
+    document.getElementById("rewind" + index).addEventListener("click", this.rewindButtonHandler);
   }
 
   registerTopBarHandler = handler => {
@@ -104,6 +105,21 @@ class ChannelHandler {
   disableEditMode = () => {
     this.editMode = false;
     document.getElementById("ed" + this.channelIndex).classList.remove("modifica");
+  }
+
+  rewindButtonHandler = () => {
+    if (this.channel.player.flags.rec) {
+      this.channel.player.stopRecord();
+      this.channel.player.stop();
+    }
+
+    else if (this.channel.player.flags.play) {
+      this.channel.player.stop();
+      this.channel.player.play();
+    }
+
+    else
+      this.channel.player.rewind();
   }
 }
 
