@@ -89,19 +89,21 @@ function initGui() {
     btn.addEventListener("click", () =>
       btn.classList.toggle("recording_mode"));
 
-  const btnTypes = [
-    //document.querySelectorAll(".sp_button"),    // play  (attualmente gestito da ChannelHandler)
-    //document.querySelectorAll(".edit"),         // edit  (attualmente gestito da ChannelHandler ed EditModeHandler)
-    //document.querySelectorAll(".clear_module"), // clear (perché è un toggle?)
-    document.querySelectorAll(".effect"),         // effect
-    document.querySelectorAll(".console_control") // global
-  ];
+  const btns = new Array(
+    document.getElementById("global_clear"),
+    document.getElementById("clear_last")
+  );
 
-  // Aggiungi un evento onclick a ciascun pulsante
-  for (const type of btnTypes)
-    for (const btn of type)
-      btn.addEventListener("click", () =>
-        btn.classList.toggle("modifica"));
+  for (let i = 1; i <= 5; ++i) {
+    btns.push(document.getElementById("clear"  + i));
+    btns.push(document.getElementById("rewind" + i));
+  }
+
+  for (const btn of btns)
+    btn.addEventListener("click", () => {
+      btn.classList.toggle("modifica");
+      setTimeout(() => btn.classList.toggle("modifica"), 500);
+    });
 }
 
 export { initGui };

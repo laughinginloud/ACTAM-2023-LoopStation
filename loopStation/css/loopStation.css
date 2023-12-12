@@ -38,32 +38,32 @@ body {
   background-color: white;
 }
 
-.console_control{
+.console_control {
   border: 3px solid #383a38;
-  color:#5c5f5c;
-  background-color:black;  
+  color: #5c5f5c;
+  background-color: black;
 }
 
 #global_sp {
-  position:absolute;
-  transform:translate(50%,-50%);
-  margin-top:130px;
-  margin-left:35%;
-  width:60px;
-  height:60px;
-  font-size:120%;
-  border-radius:100%;
+  position: absolute;
+  transform: translate(50%, -50%);
+  margin-top: 130px;
+  margin-left: 35%;
+  width: 60px;
+  height: 60px;
+  font-size: 120%;
+  border-radius: 100%;
   text-align: center;
-  line-height:60px;
-  vertical-align:middle;
-  cursor:pointer;
+  line-height: 60px;
+  vertical-align: middle;
+  cursor: pointer;
   -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    font-family: Fantasy, Copperplate;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: Fantasy, Copperplate;
   box-shadow: inset 0 0 6px #ffffff;
-  }
+}
 
 .sp_button {
   position: absolute;
@@ -127,20 +127,20 @@ body {
   margin-left: 64.6%;
 }
 
-#global_clear{
-  position:absolute;
-  transform:translate(-50%);
-  margin-top:2.5%;
-  left:90%;
-  padding:3px;
-  width:50px;
-  height:20px;
+#global_clear {
+  position: absolute;
+  transform: translate(-50%);
+  margin-top: 2.5%;
+  left: 90%;
+  padding: 3px;
+  width: 50px;
+  height: 20px;
   border-radius: 25%;
   text-align: center;
-  font-size:18px;
-  line-height:20px;
-  cursor:pointer;
--webkit-user-select: none;
+  font-size: 18px;
+  line-height: 20px;
+  cursor: pointer;
+  -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
@@ -184,28 +184,27 @@ div .odd {
   box-shadow: inset 0 0 5px #ffffff;
 }
 
-
-.rewind{
-  float:left;
-  position:absolute;
-  transform:translate(-50%,50%);
-  margin-left:17%;
-  margin-top:5%;
-  background-color:white;
+.rewind {
+  float: left;
+  position: absolute;
+  transform: translate(-50%, 50%);
+  margin-left: 17%;
+  margin-top: 5%;
+  background-color: white;
   width: 40px;
-  height:40px;
+  height: 40px;
   border: 3.5px solid #383a38;
-  border-radius:100%;
+  border-radius: 100%;
   text-align: center;
-  line-height:37px;
-  vertical-align:middle;
-  color:#5c5f5c;
-  cursor:pointer;
+  line-height: 37px;
+  vertical-align: middle;
+  color: #5c5f5c;
+  cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  font-size:150%;
+  font-size: 150%;
   font-family: Fantasy, Copperplate;
   box-shadow: inset 0 0 6px #000000;
 }
@@ -413,6 +412,6 @@ body {
 }
 
 div .recording_mode {
-  border: 5px solid #df057b;
+  border: 6px solid #df057b;
   color: #df057b;
 }
