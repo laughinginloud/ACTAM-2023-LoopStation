@@ -59,22 +59,34 @@ class Channel {
   }
 
   connectPlayer = audioBufferSourceNode => {
-    audioBufferSourceNode.connect(this.audioChain);
+    //TODO: migliorare sto if else 
+    if (this.audioChain instanceof GainNode) {
+      audioBufferSourceNode.connect(this.audioChain);
+    } else {
+      Tone.connect(audioBufferSourceNode, this.audioChain.getNode());
+    }
   }
 
   rebuildChain = () => {
+    //let chain = [];
     this.audioChain = this.gain;
+    //chain.push(this.audioChain);
 
     // Costruisce la catena a partire dalla fine
-    for (const i of ['C', 'B', 'A'])
+    for (const i of ['C', 'B', 'A']) 
       if (this.effects[i]) {
         this.effects[i].disconnect();
         this.effects[i].connect(this.audioChain);
         this.audioChain = this.effects[i];
+        //chain.push(this.audioChain);
       }
+      //console.log('my chain:', chain);
   }
+    
 }
 
+
+import * as Tone from 'tone';
 import { Player } from "./Player.js";
 
 export { Channel };
