@@ -70,7 +70,7 @@ class Player {
 
   pause = () => {
     this.flags.play = false;
-    this.pauseTime  = (this.audioContext.currentTime - this.startTime) % this.audioBuffer.cur.duration;
+    this.pauseTime  = (this.audioContext.currentTime - this.startTime) % this.audioBuffer.cur?.duration;
 
     this.audioBufferSource?.stop();
   }
