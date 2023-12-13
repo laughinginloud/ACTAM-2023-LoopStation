@@ -41,6 +41,18 @@ class EditModeHandler {
   enableModeHandler = target => {
     this.currentChannel?.disableEditMode();
     this.currentChannel = target;
+
+    if (target) {
+      document.getElementById("effA").removeAttribute("disabled");
+      document.getElementById("effB").removeAttribute("disabled");
+      document.getElementById("effC").removeAttribute("disabled");
+    }
+
+    else {
+      document.getElementById("effA").setAttribute("disabled", "disabled");
+      document.getElementById("effB").setAttribute("disabled", "disabled");
+      document.getElementById("effC").setAttribute("disabled", "disabled");
+    }
   }
 
   clearLastHandler = () => {

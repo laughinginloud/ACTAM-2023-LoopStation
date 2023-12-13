@@ -61,6 +61,11 @@ function initGui() {
       setTimeout(() => btn.classList.toggle("modifica"), 500);
     });
 
+
+  document.getElementById("effA").setAttribute("disabled", "disabled");
+  document.getElementById("effB").setAttribute("disabled", "disabled");
+  document.getElementById("effC").setAttribute("disabled", "disabled");
+
   return [manopolone, manopolino];
 }
 
