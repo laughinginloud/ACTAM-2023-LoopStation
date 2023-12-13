@@ -6,8 +6,7 @@ class Controller {
   //mixer;
 
   constructor(model, audioContext) {
-    this.model = model;
-
+    this.model        = model;
     this.audioContext = audioContext;
 
     this.channels = new Array(this.model.numChannels);

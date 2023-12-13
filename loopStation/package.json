@@ -13,9 +13,7 @@
   "dependencies": {
     "gsap": "latest",
     "parcel": "latest",
-    "tone": "latest"
-  },
-  "devDependencies": {
+    "tone": "latest",
     "@parcel/transformer-worklet": "latest"
   }
 }

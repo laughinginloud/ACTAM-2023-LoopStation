@@ -17,9 +17,14 @@ class EditModeHandler {
     this.currentChannel = null;
 
     this.effKeys = Object.keys(this.model.effects);
-    this.paramKeys = Object.keys(this.model.effects.Chorus);
+    this.paramKeys = new Array();
+
+    for (const key of this.effKeys)
+      this.paramKeys.push(Object.keys(this.model.effects[key]));
+
     this.index = 0;
     this.selectEffect = 0; //0:selEffect, 1:selParam, 2:null
+    this.currEff = null;
 
     document.getElementById("clear_last").addEventListener("click", this.clearLastHandler);
     document.getElementById("effA").addEventListener("click", this.pippo);
@@ -48,6 +53,9 @@ class EditModeHandler {
     if (this.currentChannel == null)
       return;
 
+    this.selectEffect = 0;
+    this.index = 0;
+
     this.textbox.value = this.effKeys[this.index];
   }
 
@@ -61,8 +69,8 @@ class EditModeHandler {
     }
 
     else if (this.selectEffect == 1) {
-      this.index = (this.index + 1) % this.paramKeys.length;
-      this.textbox.value = this.paramKeys[this.index];
+      this.index = (this.index + 1) % this.paramKeys[this.currEff].length;
+      this.textbox.value = this.paramKeys[this.currEff][this.index];
     }
   }
 
@@ -71,13 +79,15 @@ class EditModeHandler {
       return;
 
     if (this.selectEffect == 0) {
-      this.index = (this.index - 1) % this.effKeys.length;
+      // NOTA: non rimuovere "+ this.effKeys.length" (% è il resto, non il modulo)
+      this.index = (this.index + this.effKeys.length - 1) % this.effKeys.length;
       this.textbox.value = this.effKeys[this.index];
     }
 
     else if (this.selectEffect == 1) {
-      this.index = (this.index - 1) % this.paramKeys.length;
-      this.textbox.value = this.paramKeys[this.index];
+      // NOTA: non rimuovere "+ this.paramKeys[this.currEff].length" (% è il resto, non il modulo)
+      this.index = (this.index + this.paramKeys[this.currEff].length - 1) % this.paramKeys[this.currEff].length;
+      this.textbox.value = this.paramKeys[this.currEff][this.index];
     }
   }
 
@@ -86,15 +96,18 @@ class EditModeHandler {
       return;
 
     this.selectEffect = 1;
+    this.currEff = this.index;
+
+    this.index = 0;
 
     // Mostrare i valori associati alla chiave selezionata
-    this.textbox.value = this.paramKeys[this.index];
+    this.textbox.value = this.paramKeys[this.currEff][this.index];
 
     // TODO: illuminazione pulsante effetto
   }
 
   printEffect = value => {
-    this.textbox.value = this.paramKeys[this.index] + '\n\n' + value;
+    this.textbox.value = this.paramKeys[this.currEff][this.index] + '\n\n' + value;
   }
 
   // TODO: handler manopolino, che richiama printEffect
