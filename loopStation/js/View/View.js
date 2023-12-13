@@ -6,11 +6,11 @@ class View {
   channels;
   editMode;
 
-  constructor(model, controller) {
+  constructor(model, controller, manopole) {
     this.model = model;
     this.controller = controller;
 
-    this.editMode = new EditModeHandler();
+    this.editMode = new EditModeHandler(model, manopole);
 
     this.channels = new Array(this.model.numChannels);
 

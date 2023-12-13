@@ -10,12 +10,12 @@ import { Delay } from "./Controller/Delay"; //sta qui solo per test
 
 {
   const audioContext = new AudioContext();
-  initGui();
+  const manopole = initGui();
   initTone(audioContext);
 
   const model = new Model();
   const controller = new Controller(model, audioContext);
-  const view = new View(model, controller);
+  const view = new View(model, controller, manopole);
 
   initEffects(audioContext);
 
@@ -23,6 +23,5 @@ import { Delay } from "./Controller/Delay"; //sta qui solo per test
 
   let effetto = new Delay(); //TODO: non si sa perché il delay parta subito senza aspettare l'onclick
   document.getElementById("effA").addEventListener("click", controller.channels[0].setEffect('A',  effetto));
-  
-}
 
+}

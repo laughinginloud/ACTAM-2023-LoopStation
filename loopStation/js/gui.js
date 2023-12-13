@@ -30,59 +30,15 @@ function initGui() {
   const nextButton = document.getElementById("next");
   const selectButton = document.getElementById("select");
 
-  Draggable.create(knob, {
+  const manopolone = Draggable.create(knob, {
     type: "rotation",
     bounds: { minRotation: -135, maxRotation: 135 },
-    onDrag: function () {
-      let rotation = Math.round((this.rotation + 135) / 2.7);
-      for (let key in effetti) {
-        let values = effetti[key].split("\n");
-        values[1] =
-          "param1: " + (key === keys[index] ? rotation : rotations[key].knob);
-        effetti[key] = values.join("\n");
-        if (key === keys[index]) {
-          rotations[key].knob = rotation;
-        }
-      }
-      textbox.value = effetti[keys[index]];
-    },
-  });
+  })[0];
 
-  Draggable.create(knob1, {
+  const manopolino = Draggable.create(knob1, {
     type: "rotation",
     bounds: { minRotation: -135, maxRotation: 135 },
-    onDrag: function () {
-      let rotation1 = Math.round((this.rotation + 135) / 2.7);
-      for (let key in effetti) {
-        let values = effetti[key].split("\n");
-        values[2] =
-          "param2: " + (key === keys[index] ? rotation1 : rotations[key].knob1);
-        effetti[key] = values.join("\n");
-        if (key === keys[index]) {
-          rotations[key].knob1 = rotation1;
-        }
-      }
-      textbox.value = effetti[keys[index]];
-    },
-  });
-
-  // Aggiungere l'evento di click a ciascun pulsante
-  previousButton.addEventListener("click", () => {
-    // Scorrere all'indietro nella lista di parole
-    index = (index - 1 + keys.length) % keys.length;
-    textbox.value = keys[index];
-  });
-
-  nextButton.addEventListener("click", () => {
-    // Scorrere in avanti nella lista di parole
-    index = (index + 1) % keys.length;
-    textbox.value = keys[index];
-  });
-
-  selectButton.addEventListener("click", () => {
-    // Mostrare i valori associati alla chiave selezionata
-    textbox.value = effetti[keys[index]];
-  });
+  })[0];
 
   // Aggiungi un evento onclick a ciascun pulsante
   for (const btn of document.querySelectorAll(".rec_button"))
@@ -104,6 +60,8 @@ function initGui() {
       btn.classList.toggle("modifica");
       setTimeout(() => btn.classList.toggle("modifica"), 500);
     });
+
+  return [manopolone, manopolino];
 }
 
 export { initGui };
