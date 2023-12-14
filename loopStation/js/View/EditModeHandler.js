@@ -8,29 +8,43 @@ class EditModeHandler {
   // TODO: disabilitare il record del canale se in modalità edit
   // TODO: disabilitare i pulsanti degli effetti se non in edit mode
 
+  index;
+  selectEffect; // 0: selEffect, 1: selParam, 2: null
+  currEff;
+  currChanCh;
+
+  effKeys;
+  paramKeys;
+
+  textbox;
+
   constructor(model, manopole) {
     this.model = model;
 
-    this.manopolone = manopole[0];
-    this.manopolino = manopole[1];
+    this.manopolone = manopole.manopolone;
+    this.manopolino = manopole.manopolino;
 
     this.currentChannel = null;
 
-    this.effKeys = Object.keys(this.model.effects);
+    this.effKeys   = Object.keys(this.model.effects);
     this.paramKeys = new Array();
 
+    // TODO: aggiungere rimozione dell'effetto in fondo alla catena
     for (const key of this.effKeys)
       this.paramKeys.push(Object.keys(this.model.effects[key]));
 
-    this.index = 0;
-    this.selectEffect = 0; //0:selEffect, 1:selParam, 2:null
-    this.currEff = null;
+    this.index        = 0;
+    this.selectEffect = 2; //TODO: enum? se sì, come?
+    this.currEff      = null;
+    this.currChanCh   = null;
 
     document.getElementById("clear_last").addEventListener("click", this.clearLastHandler);
-    document.getElementById("effA").addEventListener("click", this.pippo);
-    document.getElementById("next").addEventListener("click", this.nextHandler);
-    document.getElementById("previous").addEventListener("click", this.prevHandler);
-    document.getElementById("select").addEventListener("click", this.selHandler);
+    document.getElementById("next")      .addEventListener("click", this.nextHandler);
+    document.getElementById("previous")  .addEventListener("click", this.prevHandler);
+    document.getElementById("select")    .addEventListener("click", this.selHandler);
+
+    for (const c of ['A', 'B', 'C'])
+      document.getElementById("eff" + c).addEventListener("click", () => this.effButtonHandler(c));
 
     this.manopolino.addEventListener("drag", this.manopolinoHandler);
     this.manopolone.addEventListener("drag", this.manopoloneHandler);
@@ -41,6 +55,11 @@ class EditModeHandler {
   enableModeHandler = target => {
     this.currentChannel?.disableEditMode();
     this.currentChannel = target;
+
+    if (this.currChanCh)
+      document.getElementById("eff" + this.currChanCh).classList.remove("modifica");
+
+    this.selectEffect = 2;
 
     if (target) {
       document.getElementById("effA").removeAttribute("disabled");
@@ -61,6 +80,22 @@ class EditModeHandler {
     }
   }
 
+  effButtonHandler = btn => {
+    if (this.currentChannel == null)
+      return;
+
+    if (this.currChanCh)
+      document.getElementById("eff" + this.currChanCh).classList.remove("modifica");
+
+    document.getElementById("eff" + btn).classList.add("modifica");
+
+    this.currChanCh = btn;
+    this.selectEffect = 0;
+    this.index = 0;
+    this.textbox.value = this.effKeys[this.index];
+  }
+
+  // TODO: remove
   pippo = () => {
     if (this.currentChannel == null)
       return;
@@ -107,6 +142,8 @@ class EditModeHandler {
     if (this.currentChannel == null)
       return;
 
+    this.currentChannel.channel.setEffect(this.currChanCh, effectFactory(this.effKeys[this.index], this.model));
+
     this.selectEffect = 1;
     this.currEff = this.index;
 
@@ -133,5 +170,7 @@ class EditModeHandler {
     const rotation_one = Math.round((this.manopolone.rotation + 135) / 2.7);
   }
 }
+
+import { effectFactory } from "../Controller/Effect";
 
 export { EditModeHandler }

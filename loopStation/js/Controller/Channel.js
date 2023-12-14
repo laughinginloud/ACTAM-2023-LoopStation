@@ -48,7 +48,7 @@ class Channel {
     this.effects[String(slot).trim()] = effect;
     this.rebuildChain();
 
-    this.player.play();
+    //this.player.play();
   }
 
   /**
@@ -59,7 +59,7 @@ class Channel {
   }
 
   connectPlayer = audioBufferSourceNode => {
-    //TODO: migliorare sto if else 
+    //TODO: migliorare sto if else
     if (this.audioChain instanceof GainNode) {
       audioBufferSourceNode.connect(this.audioChain);
     } else {
@@ -73,7 +73,7 @@ class Channel {
     //chain.push(this.audioChain);
 
     // Costruisce la catena a partire dalla fine
-    for (const i of ['C', 'B', 'A']) 
+    for (const i of ['C', 'B', 'A'])
       if (this.effects[i]) {
         this.effects[i].disconnect();
         this.effects[i].connect(this.audioChain);
@@ -82,7 +82,7 @@ class Channel {
       }
       //console.log('my chain:', chain);
   }
-    
+
 }
 
 

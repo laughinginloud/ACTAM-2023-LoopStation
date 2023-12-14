@@ -1,6 +1,8 @@
 class Delay {
   audioContext;
+  model;
 
+  // TODO: probabilmente rimuovere
   time;
   feedback;
   level;
@@ -10,11 +12,12 @@ class Delay {
   processor;
   crossFader;
 
-  constructor() {
+  constructor(model) {
     this.audioContext = Tone.Context;
+    this.model        = model;
 
     this.time     = new Number(1); //TODO: time range seems to be 1 secondo
-    this.feedback = new Number(0);
+    this.feedback = new Number(1);
     this.level    = new Number(0.5);
 
     this.mainParam = { "Level": this.level };
@@ -24,14 +27,16 @@ class Delay {
       "Level":    this.level
     };
 
-    this.processor = new Tone.FeedbackDelay(this.time.valueOf(), this.feedback.valueOf());
+    // TODO: controllare i range
+    this.processor = new Tone.FeedbackDelay(this.model.effects["Delay"]["Time"].value / 10, this.model.effects["Delay"]["Feedback"].value);
+    this.processor.wet.value = this.model.effects["Delay"]["Level"].value / 100; // TODO: trovare soluzione più pulita per percentuali
   }
 
   modifyMainParam = value => {
     this.mainParam.Level = parseInt(value);
     this.processor.wet.value = value;
   }
-    
+
   modifyParam = (value, param) => {
     this.params[param] = parseInt(value);
 
@@ -47,7 +52,7 @@ class Delay {
         break;
     }
   }
-    
+
   getNode = () => {
     return this.processor;
   }
@@ -64,14 +69,28 @@ class Delay {
 
   getRange = () => {
     return {
-      'Time' : {'min': 0, 'max': 1, 'step': 0.01},
-      'Feedback' : {'min': 0, 'max': 1, 'step': 0.01},
-      'Level' : {'min': 0, 'max': 1, 'step': 0.01}
+      "Time": {
+        value: this.processor.delayTime.value,
+        type:  "ms",
+        min:   10,
+        max:   100,
+        step:  1
+      },
+      "Feedback": {
+        value: this.processor.feedback.value,
+        type:  "percent",
+        min:   0,
+        max:   100,
+        step:  1
+      },
+      "Level": {
+        value: this.processor.wet.value,
+        type:  "percent",
+        min:   0,
+        max:   100,
+        step:  1
+      }
     };
-  }
-
-  handler = () => {
-    // TODO: delay
   }
 }
 
