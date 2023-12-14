@@ -20,7 +20,4 @@ import { Delay } from "./Controller/Delay"; //sta qui solo per test
   initEffects(audioContext);
 
   document.body.onclick = () => audioContext.resume();
-
-  let effetto = new Delay(); //TODO: non si sa perché il delay parta subito senza aspettare l'onclick
-  document.getElementById("effA").addEventListener("click", controller.channels[0].setEffect('A',  effetto));
 }
