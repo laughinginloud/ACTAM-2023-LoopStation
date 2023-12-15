@@ -58,13 +58,7 @@ class Delay {
   }
 
   connect = audioChain => {
-    if (audioChain instanceof GainNode) {
-      this.processor.connect(audioChain);
-    }
-
-    else {
-      Tone.connect(this.processor, audioChain.getNode());
-    }
+    connectAudioChain(this.processor, audioChain);
   }
 
   disconnect = () => {
@@ -99,5 +93,6 @@ class Delay {
 }
 
 import * as Tone from 'tone';
+import { connectAudioChain } from './effect';
 
 export {Delay};

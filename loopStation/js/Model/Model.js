@@ -26,11 +26,6 @@ class Model {
     };
   }
 
-  //setBufferLength = length => {
-  //  this.bufferLength = length;
-  //  this.firstRecord = false;
-  //}
-
   // TODO: controllare gli estremi dei range per ogni effetto
   effects = {
     "Chorus": {
@@ -89,7 +84,7 @@ class Model {
       }
     },
 
-    //// FeedbackDelay
+    // FeedbackDelay
     "Delay": {
       "Time": {
         value: 10,

@@ -14,4 +14,14 @@ function effectFactory(effect, model) {
   }
 }
 
-export { initEffects, effectFactory };
+function connectAudioChain(node, chain) {
+  if (chain instanceof GainNode)
+    node.connect(chain);
+
+  else
+    Tone.connect(node, chain.getNode());
+}
+
+import * as Tone from 'tone';
+
+export { initEffects, connectAudioChain, effectFactory };

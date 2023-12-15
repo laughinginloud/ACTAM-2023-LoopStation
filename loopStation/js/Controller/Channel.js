@@ -59,12 +59,7 @@ class Channel {
   }
 
   connectPlayer = audioBufferSourceNode => {
-    //TODO: spostare in Effect.js
-    if (this.audioChain instanceof GainNode) {
-      audioBufferSourceNode.connect(this.audioChain);
-    } else {
-      Tone.connect(audioBufferSourceNode, this.audioChain.getNode());
-    }
+    connectAudioChain(audioBufferSourceNode, this.audioChain);
   }
 
   rebuildChain = () => {
@@ -88,5 +83,6 @@ class Channel {
 
 import * as Tone from 'tone';
 import { Player } from "./Player.js";
+import { connectAudioChain } from "./effect.js"
 
 export { Channel };

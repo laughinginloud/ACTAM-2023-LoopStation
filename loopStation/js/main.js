@@ -2,9 +2,9 @@ import { Model }       from "./Model/Model";
 import { Controller }  from "./Controller/Controller";
 import { View }        from "./View/View";
 
-import { initTone }     from "./atone";
+import { initTone }    from "./atone";
 import { initGui }     from "./gui";
-import { initEffects } from "./Controller/Effect";
+import { initEffects } from "./Controller/effect";
 
 import { Delay } from "./Controller/Delay"; //sta qui solo per test
 
