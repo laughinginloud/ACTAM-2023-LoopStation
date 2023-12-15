@@ -98,7 +98,7 @@ class EditModeHandler {
     this.currChanCh = btn;
     this.selectEffect = 0;
     this.index = 0;
-    this.textbox.value = this.effKeys[this.index];
+    this.printEffectName(this.effKeys[this.index]);
   }
 
   nextHandler = () => {
@@ -107,12 +107,12 @@ class EditModeHandler {
 
     if (this.selectEffect == 0) {
       this.index = (this.index + 1) % this.effKeys.length;
-      this.textbox.value = this.effKeys[this.index];
+      this.printEffectName(this.effKeys[this.index]);
     }
 
     else if (this.selectEffect == 1) {
       this.index = (this.index + 1) % this.paramKeys[this.currEff].length;
-      this.textbox.value = this.paramKeys[this.currEff][this.index];
+      this.printEffectParam(this.paramKeys[this.currEff][this.index]);
     }
   }
 
@@ -123,13 +123,13 @@ class EditModeHandler {
     if (this.selectEffect == 0) {
       // NOTA: non rimuovere "+ this.effKeys.length" (% è il resto, non il modulo)
       this.index = (this.index + this.effKeys.length - 1) % this.effKeys.length;
-      this.textbox.value = this.effKeys[this.index];
+      this.printEffectName(this.effKeys[this.index]);
     }
 
     else if (this.selectEffect == 1) {
       // NOTA: non rimuovere "+ this.paramKeys[this.currEff].length" (% è il resto, non il modulo)
       this.index = (this.index + this.paramKeys[this.currEff].length - 1) % this.paramKeys[this.currEff].length;
-      this.textbox.value = this.paramKeys[this.currEff][this.index];
+      this.printEffectParam(this.paramKeys[this.currEff][this.index]);
     }
   }
 
@@ -145,20 +145,24 @@ class EditModeHandler {
     this.index = 0;
 
     // Mostrare i valori associati alla chiave selezionata
-    this.textbox.value = this.paramKeys[this.currEff][this.index];
+    this.printEffectParam(this.paramKeys[this.currEff][this.index]);
 
     // TODO: illuminazione pulsante effetto
   }
 
-  printEffect = value => {
-    this.textbox.value = this.paramKeys[this.currEff][this.index] + '\n\n' + value;
+  printEffectName = eff => {
+    this.textbox.value = 'Channel ' + this.currChanCh + '\n' + eff;
   }
 
-  // TODO: handler manopolino, che richiama printEffect
+  printEffectParam = (eff, value) => {
+    this.textbox.value = 'Channel ' + this.currChanCh + '\n' + eff + (value != undefined && value != null ? ('\n' + value) : '');
+  }
+
+  // TODO: handler manopolino, che richiama printEffectParam
 
   manopolinoHandler = () => {
     const rotation_ina = Math.round((this.manopolino.rotation + 135) / 2.7);
-    this.printEffect(rotation_ina);
+    this.printEffectParam(this.paramKeys[this.currEff][this.index], rotation_ina);
   }
 
   manopoloneHandler = () => {
@@ -166,6 +170,6 @@ class EditModeHandler {
   }
 }
 
-import { effectFactory } from "../Controller/Effect";
+import { effectFactory } from "../Controller/effect";
 
 export { EditModeHandler }
