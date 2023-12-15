@@ -14,6 +14,7 @@ function effectFactory(effect, model) {
   }
 }
 
+// TODO: gain all'avvio
 function connectAudioChain(node, chain) {
   if (chain instanceof GainNode)
     node.connect(chain);

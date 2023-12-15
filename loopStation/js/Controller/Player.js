@@ -61,7 +61,6 @@ class Player {
       this.audioBufferSource.loop = true;
       this.channel.connectPlayer(this.audioBufferSource);
       this.audioBufferSource.start(0, this.pauseTime);
-
       this.startTime  = this.audioContext.currentTime - this.pauseTime;
       this.pauseTime  = 0;
       this.flags.play = true;
@@ -147,6 +146,7 @@ class Player {
       });
   }
 
+  // TODO: play durante overdub
   overdub = buffers => {
     const n_buffer    = buffers.length;
     let   maxChannels = 0;              // Get the maximum number of channels across all buffers

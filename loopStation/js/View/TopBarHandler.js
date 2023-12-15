@@ -20,7 +20,9 @@ class TopBarHandler {
   }
 
   playPauseHandler = () => {
-    if (this.channels.some(ch => ch.channel.player.flags.play || ch.channel.player.flags.rec))
+    if (this.channels.some(ch => ch.channel.player.flags.play || ch.channel.player.flags.rec)) {
+      document.getElementById("global_sp").classList.remove("modifica");
+
       for (const ch of this.channels) {
         ch.channel.player.stop();
 
@@ -28,13 +30,22 @@ class TopBarHandler {
           document.getElementById("sp" + ch.channelIndex).classList.remove("modifica");
       }
 
-    else
-      for (const ch of this.channels) {
-        ch.channel.player.play();
+      for (let idx = 0; idx < this.playing.length; ++idx)
+        this.playing[idx] = false;
+    }
 
-        if (ch.channel.player.flags.play)
-          document.getElementById("sp" + ch.channelIndex).classList.add("modifica");
+    else {
+      document.getElementById("global_sp").classList.add("modifica");
+
+      for (let idx = 0; idx < this.playing.length; ++idx) {
+        this.channels[idx].channel.player.play();
+
+        if (this.channels[idx].channel.player.flags.play) {
+          document.getElementById("sp" + (idx + 1)).classList.add("modifica");
+          this.playing[idx] = true;
+        }
       }
+    }
   }
 
   notifyPlay = index => {

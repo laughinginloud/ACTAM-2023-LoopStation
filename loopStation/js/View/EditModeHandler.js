@@ -158,10 +158,9 @@ class EditModeHandler {
     this.textbox.value = 'Channel ' + this.currChanCh + '\n' + param + (value != undefined && value != null ? ('\n' + knobRange(value, this.model.effects[this.effKeys[this.currEff]][this.paramKeys[this.currEff][this.index]].type).repr) : '');
   }
 
-  // TODO: handler manopolino, che richiama printEffectParam
-
   manopolinoHandler = () => {
     this.printEffectParam(this.paramKeys[this.currEff][this.index], this.manopolino.rotation);
+    // TODO: passaggio del valore all'effetto
   }
 
   manopoloneHandler = () => {
