@@ -22,6 +22,34 @@ function connectAudioChain(node, chain) {
     Tone.connect(node, chain.getNode());
 }
 
+function knobRange(angle, type, min, max, step) {
+  let val;
+  let repr;
+
+  switch (type) {
+    case "hz":
+      break;
+    case "ms":
+      val  = Math.round((((angle + 135) / 270) * 90)) + 10;
+      repr = val + ' ms';
+      break;
+    case "percent":
+      val  = Math.round((angle + 135) / 2.7);
+      repr = val + '%';
+      break;
+    case "st":
+      break;
+    case "dB":
+      break;
+    case "nat":
+      break;
+    case "cutoff":
+      break;
+  }
+
+  return { val: val, repr: repr };
+}
+
 import * as Tone from 'tone';
 
-export { initEffects, connectAudioChain, effectFactory };
+export { initEffects, connectAudioChain, effectFactory, knobRange };

@@ -179,7 +179,7 @@ class Model {
     "Filter": {
       "Freqeuncy": {
         value: 22000,
-        type:  "hz",
+        type:  "cutoff",
         min:   20,
         max:   22000,
         step:  1

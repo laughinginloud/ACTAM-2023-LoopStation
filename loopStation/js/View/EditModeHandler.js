@@ -154,15 +154,14 @@ class EditModeHandler {
     this.textbox.value = 'Channel ' + this.currChanCh + '\n' + eff;
   }
 
-  printEffectParam = (eff, value) => {
-    this.textbox.value = 'Channel ' + this.currChanCh + '\n' + eff + (value != undefined && value != null ? ('\n' + value) : '');
+  printEffectParam = (param, value) => {
+    this.textbox.value = 'Channel ' + this.currChanCh + '\n' + param + (value != undefined && value != null ? ('\n' + knobRange(value, this.model.effects[this.effKeys[this.currEff]][this.paramKeys[this.currEff][this.index]].type).repr) : '');
   }
 
   // TODO: handler manopolino, che richiama printEffectParam
 
   manopolinoHandler = () => {
-    const rotation_ina = Math.round((this.manopolino.rotation + 135) / 2.7);
-    this.printEffectParam(this.paramKeys[this.currEff][this.index], rotation_ina);
+    this.printEffectParam(this.paramKeys[this.currEff][this.index], this.manopolino.rotation);
   }
 
   manopoloneHandler = () => {
@@ -170,6 +169,6 @@ class EditModeHandler {
   }
 }
 
-import { effectFactory } from "../Controller/effect";
+import { effectFactory, knobRange } from "../Controller/effect";
 
 export { EditModeHandler }
