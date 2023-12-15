@@ -59,7 +59,7 @@ class Channel {
   }
 
   connectPlayer = audioBufferSourceNode => {
-    //TODO: migliorare sto if else
+    //TODO: spostare in Effect.js
     if (this.audioChain instanceof GainNode) {
       audioBufferSourceNode.connect(this.audioChain);
     } else {

@@ -56,8 +56,8 @@ class EditModeHandler {
     this.currentChannel?.disableEditMode();
     this.currentChannel = target;
 
-    if (this.currChanCh)
-      document.getElementById("eff" + this.currChanCh).classList.remove("modifica");
+    for (const eff of ['A', 'B', 'C'])
+      document.getElementById("eff" + eff).classList.remove("modifica");
 
     this.selectEffect = 2;
 
@@ -66,14 +66,18 @@ class EditModeHandler {
       document.getElementById("effB")      .removeAttribute("disabled");
       document.getElementById("effC")      .removeAttribute("disabled");
       document.getElementById("clear_last").removeAttribute("disabled");
-  }
+
+      for (const eff of ['A', 'B', 'C'])
+        if (this.currentChannel.channel.effects[eff] != null)
+          document.getElementById("eff" + eff).classList.add("modifica");
+    }
 
     else {
       document.getElementById("effA")      .setAttribute("disabled", "disabled");
       document.getElementById("effB")      .setAttribute("disabled", "disabled");
       document.getElementById("effC")      .setAttribute("disabled", "disabled");
       document.getElementById("clear_last").setAttribute("disabled", "disabled");
-  }
+    }
   }
 
   clearLastHandler = () => {
@@ -86,7 +90,7 @@ class EditModeHandler {
     if (this.currentChannel == null)
       return;
 
-    if (this.currChanCh)
+    if (this.currChanCh && this.currentChannel.channel.effects[this.currChanCh] == null)
       document.getElementById("eff" + this.currChanCh).classList.remove("modifica");
 
     document.getElementById("eff" + btn).classList.add("modifica");
@@ -94,17 +98,6 @@ class EditModeHandler {
     this.currChanCh = btn;
     this.selectEffect = 0;
     this.index = 0;
-    this.textbox.value = this.effKeys[this.index];
-  }
-
-  // TODO: remove
-  pippo = () => {
-    if (this.currentChannel == null)
-      return;
-
-    this.selectEffect = 0;
-    this.index = 0;
-
     this.textbox.value = this.effKeys[this.index];
   }
 

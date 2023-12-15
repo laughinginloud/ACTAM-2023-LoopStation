@@ -58,9 +58,13 @@ class Delay {
   }
 
   connect = audioChain => {
-    //this.processor.connect(audioChain);
-    //Tone.connect(audioChain, this.processor);
-    this.processor.chain(audioChain);
+    if (audioChain instanceof GainNode) {
+      this.processor.connect(audioChain);
+    }
+
+    else {
+      Tone.connect(this.processor, audioChain.getNode());
+    }
   }
 
   disconnect = () => {
