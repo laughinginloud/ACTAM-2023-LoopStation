@@ -62,9 +62,10 @@ function initGui() {
     });
 
 
-  document.getElementById("effA").setAttribute("disabled", "disabled");
-  document.getElementById("effB").setAttribute("disabled", "disabled");
-  document.getElementById("effC").setAttribute("disabled", "disabled");
+  document.getElementById("effA")      .setAttribute("disabled", "disabled");
+  document.getElementById("effB")      .setAttribute("disabled", "disabled");
+  document.getElementById("effC")      .setAttribute("disabled", "disabled");
+  document.getElementById("clear_last").setAttribute("disabled", "disabled");
 
   return { manopolone: manopolone, manopolino: manopolino };
 }

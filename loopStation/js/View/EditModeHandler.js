@@ -62,16 +62,18 @@ class EditModeHandler {
     this.selectEffect = 2;
 
     if (target) {
-      document.getElementById("effA").removeAttribute("disabled");
-      document.getElementById("effB").removeAttribute("disabled");
-      document.getElementById("effC").removeAttribute("disabled");
-    }
+      document.getElementById("effA")      .removeAttribute("disabled");
+      document.getElementById("effB")      .removeAttribute("disabled");
+      document.getElementById("effC")      .removeAttribute("disabled");
+      document.getElementById("clear_last").removeAttribute("disabled");
+  }
 
     else {
-      document.getElementById("effA").setAttribute("disabled", "disabled");
-      document.getElementById("effB").setAttribute("disabled", "disabled");
-      document.getElementById("effC").setAttribute("disabled", "disabled");
-    }
+      document.getElementById("effA")      .setAttribute("disabled", "disabled");
+      document.getElementById("effB")      .setAttribute("disabled", "disabled");
+      document.getElementById("effC")      .setAttribute("disabled", "disabled");
+      document.getElementById("clear_last").setAttribute("disabled", "disabled");
+  }
   }
 
   clearLastHandler = () => {
