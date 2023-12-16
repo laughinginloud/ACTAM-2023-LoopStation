@@ -31,7 +31,7 @@ class EditModeHandler {
 
     // TODO: aggiungere rimozione dell'effetto in fondo alla catena
     for (const key of this.effKeys)
-      this.paramKeys.push(Object.keys(this.model.effects[key]));
+      this.paramKeys.push(Object.keys(this.model.effects[key]).concat("Remove effect"));
 
     this.index        = 0;
     this.selectEffect = 2; //TODO: enum? se sì, come?
@@ -137,17 +137,28 @@ class EditModeHandler {
     if (this.currentChannel == null)
       return;
 
-    this.currentChannel.channel.setEffect(this.currChanCh, effectFactory(this.effKeys[this.index], this.model));
+    if (this.selectEffect == 0) {
+      this.currentChannel.channel.setEffect(this.currChanCh, effectFactory(this.effKeys[this.index], this.model));
 
-    this.selectEffect = 1;
-    this.currEff = this.index;
+      this.selectEffect = 1;
+      this.currEff = this.index;
 
-    this.index = 0;
+      this.index = 0;
 
-    // Mostrare i valori associati alla chiave selezionata
-    this.printEffectParam(this.paramKeys[this.currEff][this.index]);
+      // Mostrare i valori associati alla chiave selezionata
+      this.printEffectParam(this.paramKeys[this.currEff][this.index]);
+    }
 
-    // TODO: illuminazione pulsante effetto
+    else if (this.selectEffect == 1 && this.paramKeys[this.currEff][this.index] == "Remove effect") {
+      this.currentChannel.channel.removeEffect(this.currChanCh);
+
+      this.selectEffect = 0;
+      this.currEff = null;
+
+      this.index = 0;
+
+      this.printEffectName(this.effKeys[this.index]);
+    }
   }
 
   printEffectName = eff => {
