@@ -35,7 +35,7 @@ class EditModeHandler {
 
     this.index        = 0;
     this.selectEffect = 2; //TODO: enum? se sì, come?
-    this.currEff      = null;
+    this.currEff      = { 'A': null, 'B': null, 'C': null };
     this.currChanCh   = null;
 
     document.getElementById("clear_last").addEventListener("click", this.clearLastHandler);
@@ -96,9 +96,18 @@ class EditModeHandler {
     document.getElementById("eff" + btn).classList.add("modifica");
 
     this.currChanCh = btn;
-    this.selectEffect = 0;
-    this.index = 0;
-    this.printEffectName(this.effKeys[this.index]);
+
+    if (this.currentChannel.channel.effects[this.currChanCh] == null) {
+      this.selectEffect = 0;
+      this.index = 0;
+      this.printEffectName(this.effKeys[this.index]);
+    }
+
+    else {
+      this.selectEffect = 1;
+      this.index = 0;
+      this.printEffectParam(this.paramKeys[this.currEff[this.currChanCh]][this.index]);
+    }
   }
 
   nextHandler = () => {
@@ -111,8 +120,8 @@ class EditModeHandler {
     }
 
     else if (this.selectEffect == 1) {
-      this.index = (this.index + 1) % this.paramKeys[this.currEff].length;
-      this.printEffectParam(this.paramKeys[this.currEff][this.index]);
+      this.index = (this.index + 1) % this.paramKeys[this.currEff[this.currChanCh]].length;
+      this.printEffectParam(this.paramKeys[this.currEff[this.currChanCh]][this.index]);
     }
   }
 
@@ -128,8 +137,8 @@ class EditModeHandler {
 
     else if (this.selectEffect == 1) {
       // NOTA: non rimuovere "+ this.paramKeys[this.currEff].length" (% è il resto, non il modulo)
-      this.index = (this.index + this.paramKeys[this.currEff].length - 1) % this.paramKeys[this.currEff].length;
-      this.printEffectParam(this.paramKeys[this.currEff][this.index]);
+      this.index = (this.index + this.paramKeys[this.currEff[this.currChanCh]].length - 1) % this.paramKeys[this.currEff[this.currChanCh]].length;
+      this.printEffectParam(this.paramKeys[this.currEff[this.currChanCh]][this.index]);
     }
   }
 
@@ -141,19 +150,19 @@ class EditModeHandler {
       this.currentChannel.channel.setEffect(this.currChanCh, effectFactory(this.effKeys[this.index], this.model));
 
       this.selectEffect = 1;
-      this.currEff = this.index;
+      this.currEff[this.currChanCh] = this.index;
 
       this.index = 0;
 
       // Mostrare i valori associati alla chiave selezionata
-      this.printEffectParam(this.paramKeys[this.currEff][this.index]);
+      this.printEffectParam(this.paramKeys[this.currEff[this.currChanCh]][this.index]);
     }
 
-    else if (this.selectEffect == 1 && this.paramKeys[this.currEff][this.index] == "Remove effect") {
+    else if (this.selectEffect == 1 && this.paramKeys[this.currEff[this.currChanCh]][this.index] == "Remove effect") {
       this.currentChannel.channel.removeEffect(this.currChanCh);
 
       this.selectEffect = 0;
-      this.currEff = null;
+      this.currEff[this.currChanCh] = null;
 
       this.index = 0;
 
@@ -170,7 +179,7 @@ class EditModeHandler {
   }
 
   manopolinoHandler = () => {
-    this.printEffectParam(this.paramKeys[this.currEff][this.index], this.manopolino.rotation);
+    this.printEffectParam(this.paramKeys[this.currEff[this.currChanCh]][this.index], this.manopolino.rotation);
     // TODO: passaggio del valore all'effetto
   }
 
