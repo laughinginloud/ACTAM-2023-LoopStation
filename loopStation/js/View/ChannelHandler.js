@@ -33,6 +33,9 @@ class ChannelHandler {
   }
 
   recordPlayButtonHandler = () => {
+    if (document.getElementById("rec" + this.channelIndex).attributes["disabled"])
+      return;
+
     if (this.flags.rec) {
       this.channel.player.stopRecord();
       document.getElementById("sp" + this.channelIndex).classList.add("modifica");
@@ -94,17 +97,20 @@ class ChannelHandler {
     if (this.editMode) {
       document.getElementById("ed" + this.channelIndex).classList.add("modifica");
       this.editModeHandler.enableModeHandler(this);
+      document.getElementById("rec" + this.channelIndex).setAttribute("disabled", "disabled");
     }
 
     else {
       document.getElementById("ed" + this.channelIndex).classList.remove("modifica");
       this.editModeHandler.enableModeHandler(null);
+      document.getElementById("rec" + this.channelIndex).removeAttribute("disabled");
     }
   }
 
   disableEditMode = () => {
     this.editMode = false;
     document.getElementById("ed" + this.channelIndex).classList.remove("modifica");
+    document.getElementById("rec" + this.channelIndex).removeAttribute("disabled");
   }
 
   rewindButtonHandler = () => {

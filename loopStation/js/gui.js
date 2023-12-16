@@ -42,8 +42,10 @@ function initGui() {
 
   // Aggiungi un evento onclick a ciascun pulsante
   for (const btn of document.querySelectorAll(".rec_button"))
-    btn.addEventListener("click", () =>
-      btn.classList.toggle("recording_mode"));
+    btn.addEventListener("click", () => {
+      if (!btn.attributes["disabled"])
+        btn.classList.toggle("recording_mode");
+    });
 
   const btns = new Array(
     document.getElementById("global_clear"),

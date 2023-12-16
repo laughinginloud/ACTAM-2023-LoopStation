@@ -5,9 +5,6 @@ class EditModeHandler {
 
   currentChannel;
 
-  // TODO: disabilitare il record del canale se in modalità edit
-  // TODO: disabilitare i pulsanti degli effetti se non in edit mode
-
   index;
   selectEffect; // 0: selEffect, 1: selParam, 2: null
   currEff;
