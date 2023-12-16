@@ -65,6 +65,7 @@ class Delay {
     this.processor.disconnect();
   }
 
+  // TODO: cancellare?
   getRange = () => {
     return {
       "Time": {

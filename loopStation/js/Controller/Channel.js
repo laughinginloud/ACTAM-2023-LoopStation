@@ -80,8 +80,6 @@ class Channel {
 
 }
 
-
-import * as Tone from 'tone';
 import { Player } from "./Player.js";
 import { connectAudioChain } from "./effect.js"
 

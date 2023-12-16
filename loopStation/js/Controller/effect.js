@@ -3,6 +3,10 @@ import filterUrl from "worklet:./Filter.js";
 
 import { Delay } from "./Delay";
 
+function initTone(audioContext) {
+  Tone.setContext(audioContext);
+}
+
 function initEffects(audioContext) {
   audioContext.audioWorklet.addModule(filterUrl);
 }
@@ -53,4 +57,4 @@ function knobRange(angle, type, min, max, step) {
 
 import * as Tone from 'tone';
 
-export { initEffects, connectAudioChain, effectFactory, knobRange };
+export { initTone, initEffects, connectAudioChain, effectFactory, knobRange };
