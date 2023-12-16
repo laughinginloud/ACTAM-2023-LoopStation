@@ -67,6 +67,9 @@ class EditModeHandler {
       document.getElementById("effC")      .removeAttribute("disabled");
       document.getElementById("clear_last").removeAttribute("disabled");
 
+      this.manopolone.enable();
+      this.manopolino.enable();
+
       for (const eff of ['A', 'B', 'C'])
         if (this.currentChannel.channel.effects[eff] != null)
           document.getElementById("eff" + eff).classList.add("modifica");
@@ -77,6 +80,9 @@ class EditModeHandler {
       document.getElementById("effB")      .setAttribute("disabled", "disabled");
       document.getElementById("effC")      .setAttribute("disabled", "disabled");
       document.getElementById("clear_last").setAttribute("disabled", "disabled");
+
+      this.manopolone.disable();
+      this.manopolino.disable();
     }
   }
 

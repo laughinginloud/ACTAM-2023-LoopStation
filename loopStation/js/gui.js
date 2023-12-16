@@ -67,6 +67,9 @@ function initGui() {
   document.getElementById("effC")      .setAttribute("disabled", "disabled");
   document.getElementById("clear_last").setAttribute("disabled", "disabled");
 
+  manopolone.disable();
+  manopolino.disable();
+
   return { manopolone: manopolone, manopolino: manopolino };
 }
 
