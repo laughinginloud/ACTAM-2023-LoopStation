@@ -39,8 +39,8 @@ function knobRange(angle, type, min, max, step) {
       repr = val + ' ms';
       break;
     case "percent":
-      val  = Math.round((angle + 135) / 2.7);
-      repr = val + '%';
+      val  = Math.round((angle + 135) / 2.7) / 100;
+      repr = Math.round((angle + 135) / 2.7) + '%';
       break;
     case "st":
       break;
