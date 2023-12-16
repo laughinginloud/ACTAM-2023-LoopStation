@@ -33,8 +33,7 @@ class Delay {
   }
 
   modifyMainParam = value => {
-    this.mainParam.Level = parseInt(value);
-    this.processor.wet.value = value;
+    this.modifyParam(value, this.getMainParam());
   }
 
   modifyParam = (value, param) => {
@@ -63,6 +62,10 @@ class Delay {
 
   disconnect = () => {
     this.processor.disconnect();
+  }
+
+  getMainParam = () => {
+    return "Level";
   }
 
   // TODO: cancellare?

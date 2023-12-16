@@ -181,16 +181,26 @@ class EditModeHandler {
   }
 
   printEffectParam = (param, value) => {
-    this.textbox.value = 'Channel ' + this.currChanCh + '\n' + param + (value != undefined && value != null ? ('\n' + knobRange(value, this.model.effects[this.effKeys[this.currEff]][this.paramKeys[this.currEff][this.index]].type).repr) : '');
+    this.textbox.value = 'Channel ' + this.currChanCh + '\n' + param + (value != undefined && value != null ? ('\n' + value) : '');
   }
 
   manopolinoHandler = () => {
-    this.printEffectParam(this.paramKeys[this.currEff[this.currChanCh]][this.index], this.manopolino.rotation);
-    // TODO: passaggio del valore all'effetto
+    if (this.selectEffect != 1 || this.paramKeys[this.currEff[this.currChanCh]][this.index] == "Remove effect")
+      return;
+
+    const kr = knobRange(this.manopolino.rotation, this.model.effects[this.effKeys[this.currEff[this.currChanCh]]][this.paramKeys[this.currEff[this.currChanCh]][this.index]].type);
+    this.printEffectParam(this.paramKeys[this.currEff[this.currChanCh]][this.index], kr.repr);
+    this.currentChannel.channel.effects[this.currChanCh].modifyParam(kr.val, this.paramKeys[this.currEff[this.currChanCh]][this.index]);
   }
 
   manopoloneHandler = () => {
-    const rotation_one = Math.round((this.manopolone.rotation + 135) / 2.7);
+    if (this.selectEffect != 1 || this.paramKeys[this.currEff[this.currChanCh]][this.index] == "Remove effect")
+      return;
+
+    const param = this.currentChannel.channel.effects[this.currChanCh].getMainParam();
+    const kr = knobRange(this.manopolone.rotation, this.model.effects[this.effKeys[this.currEff[this.currChanCh]]][param].type);
+    this.printEffectParam(param, kr.repr);
+    this.currentChannel.channel.effects[this.currChanCh].modifyMainParam(kr.val);
   }
 }
 
