@@ -209,10 +209,10 @@ class Model {
         step:  1
       },
       "Ratio": {
-        value: 0,
+        value: 1,
         type:  "nat", // Alias di percent? Oppure range differente?
-        min:   0,
-        max:   100,
+        min:   1,
+        max:   20,
         step:  1
       }
     }
