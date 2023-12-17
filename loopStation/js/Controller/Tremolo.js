@@ -1,10 +1,10 @@
-class Delay {
+class Tremolo {
   audioContext;
   model;
 
   // TODO: probabilmente rimuovere
-  time;
-  feedback;
+  frequency;
+  depth;
   level;
 
   mainParam;
@@ -15,20 +15,20 @@ class Delay {
     this.audioContext = Tone.Context;
     this.model        = model;
 
-    this.time     = new Number(1); //TODO: time range seems to be 1 secondo
-    this.feedback = new Number(1);
-    this.level    = new Number(0.5);
+    this.frequency = new Number(1); //TODO: time range seems to be 1 secondo
+    this.depth     = new Number(1);
+    this.level     = new Number(0.5);
 
     this.mainParam = { "Level": this.level };
     this.params = {
-      "Time":     this.time,
-      "Feedback": this.feedback,
-      "Level":    this.level
+      "Frequency": this.frequency,
+      "Depth":     this.depth,
+      "Level":     this.level
     };
 
     // TODO: controllare i range
-    this.processor = new Tone.FeedbackDelay(this.model.effects["Delay"]["Time"].value / 10, this.model.effects["Delay"]["Feedback"].value);
-    this.processor.wet.value = this.model.effects["Delay"]["Level"].value / 100; // TODO: trovare soluzione più pulita per percentuali
+    this.processor = new Tone.Tremolo(this.model.effects["Tremolo"]["Frequency"].value, this.model.effects["Tremolo"]["Depth"].value / 100);
+    this.processor.wet.value = this.model.effects["Tremolo"]["Level"].value / 100; // TODO: trovare soluzione più pulita per percentuali
   }
 
   modifyMainParam = value => {
@@ -42,11 +42,11 @@ class Delay {
       case "Level":
         this.processor.wet.value = value;
         break
-      case "Time":
-        this.processor.delayTime.value = value;
+      case "Frequency":
+        this.processor.frequency.value = value;
         break;
-      case "Feedback":
-        this.processor.feedback.value = value;
+      case "Depth":
+        this.processor.depth.value = value;
         break;
     }
   }
@@ -70,22 +70,22 @@ class Delay {
   // TODO: cancellare?
   getRange = () => {
     return {
-      "Time": {
-        value: this.processor.delayTime.value,
-        type:  "ms",
-        min:   10,
-        max:   100,
-        step:  1
+      "Frequency": {
+        value: 0.1,
+        type:  "hz",
+        min:   0.1,
+        max:   10,
+        step:  0.01
       },
-      "Feedback": {
-        value: this.processor.feedback.value,
+      "Depth": {
+        value: 50,
         type:  "percent",
         min:   0,
         max:   100,
         step:  1
       },
       "Level": {
-        value: this.processor.wet.value,
+        value: 50,
         type:  "percent",
         min:   0,
         max:   100,
@@ -98,4 +98,4 @@ class Delay {
 import * as Tone from 'tone';
 import { connectAudioChain } from './effect';
 
-export {Delay};
+export { Tremolo };

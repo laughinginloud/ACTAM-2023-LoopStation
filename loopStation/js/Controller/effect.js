@@ -1,8 +1,6 @@
 // @ts-ignore
 import filterUrl from "worklet:./Filter.js";
 
-import { Delay } from "./Delay";
-
 function initTone(audioContext) {
   Tone.setContext(audioContext);
 }
@@ -12,13 +10,25 @@ function initEffects(audioContext) {
 }
 
 function effectFactory(effect, model) {
-  switch (effect) {
-    case "Delay": return new Delay(model);
-    // TODO: resto degli effetti
-  }
+  const eff = (() => {
+    switch (effect) {
+      case "Chorus":      return Chorus;
+      case "Delay":       return Delay;
+      case "Reverb":      return Reverb;
+      case "Vibrato":     return Vibrato;
+      case "Tremolo":     return Tremolo;
+      case "Pitch shift": return PitchShift;
+      // TODO: Filtro
+      case "Compressor":  return Compressor;
+
+      default: console.log(effect + " non è un effetto valido." + "\n" + "Thus I die. Thus, thus, thus. Now I am dead, Now I am fled, My soul is in the sky. Tongue, lose thy light. Moon take thy flight. Now die, die, die, die.")
+    }
+  })();
+
+  return new eff(model);
 }
 
-// TODO: gain all'avvio
+// TODO: check perché gain all'avvio
 function connectAudioChain(node, chain) {
   if (chain instanceof GainNode)
     node.connect(chain);
@@ -33,6 +43,7 @@ function knobRange(angle, type, min, max, step) {
 
   switch (type) {
     case "hz":
+      // TODO
       break;
     case "ms":
       val  = Math.round((((angle + 135) / 270) * 90)) + 10;
@@ -43,12 +54,16 @@ function knobRange(angle, type, min, max, step) {
       repr = Math.round((angle + 135) / 2.7) + '%';
       break;
     case "st":
+      // TODO
       break;
     case "dB":
+      // TODO
       break;
     case "nat":
+      // TODO
       break;
     case "cutoff":
+      // TODO
       break;
   }
 
@@ -56,5 +71,13 @@ function knobRange(angle, type, min, max, step) {
 }
 
 import * as Tone from 'tone';
+
+import { Chorus }     from "./Chorus";
+import { Delay }      from "./Delay";
+import { Reverb }     from "./Reverb";
+import { Vibrato }    from "./Vibrato";
+import { Tremolo }    from "./Tremolo";
+import { PitchShift } from "./PitchShift";
+import { Compressor } from "./Compressor";
 
 export { initTone, initEffects, connectAudioChain, effectFactory, knobRange };

@@ -1,10 +1,11 @@
-class Delay {
+class Chorus {
   audioContext;
   model;
 
   // TODO: probabilmente rimuovere
-  time;
-  feedback;
+  frequency;
+  delay;
+  depth;
   level;
 
   mainParam;
@@ -15,20 +16,22 @@ class Delay {
     this.audioContext = Tone.Context;
     this.model        = model;
 
-    this.time     = new Number(1); //TODO: time range seems to be 1 secondo
-    this.feedback = new Number(1);
-    this.level    = new Number(0.5);
+    this.frequency = new Number(1); //TODO: time range seems to be 1 secondo
+    this.delay     = new Number(1);
+    this.depth     = new Number(1);
+    this.level     = new Number(0.5);
 
     this.mainParam = { "Level": this.level };
     this.params = {
-      "Time":     this.time,
-      "Feedback": this.feedback,
-      "Level":    this.level
+      "Frequency":  this.frequency,
+      "Delay time": this.delay,
+      "Depth":      this.depth,
+      "Level":      this.level
     };
 
     // TODO: controllare i range
-    this.processor = new Tone.FeedbackDelay(this.model.effects["Delay"]["Time"].value / 10, this.model.effects["Delay"]["Feedback"].value);
-    this.processor.wet.value = this.model.effects["Delay"]["Level"].value / 100; // TODO: trovare soluzione più pulita per percentuali
+    this.processor = new Tone.Chorus(this.model.effects["Chorus"]["Frequency"].value, this.model.effects["Chorus"]["Delay time"].value, this.model.effects["Chorus"]["Depth"].value);
+    this.processor.wet.value = this.model.effects["Chorus"]["Level"].value / 100; // TODO: trovare soluzione più pulita per percentuali
   }
 
   modifyMainParam = value => {
@@ -42,11 +45,14 @@ class Delay {
       case "Level":
         this.processor.wet.value = value;
         break
-      case "Time":
-        this.processor.delayTime.value = value;
+      case "Frequency":
+        this.processor.frequency.value = value;
         break;
-      case "Feedback":
-        this.processor.feedback.value = value;
+      case "Delay time":
+        this.processor.delayTime = value;
+        break;
+      case "Depth":
+        this.processor.depth = value;
         break;
     }
   }
@@ -70,22 +76,29 @@ class Delay {
   // TODO: cancellare?
   getRange = () => {
     return {
-      "Time": {
-        value: this.processor.delayTime.value,
+      "Frequency": {
+        value: 0.1,
+        type:  "hz",
+        min:   0.1,
+        max:   10,
+        step:  0.01
+      },
+      "Delay time": {
+        value: 10,
         type:  "ms",
         min:   10,
         max:   100,
         step:  1
       },
-      "Feedback": {
-        value: this.processor.feedback.value,
+      "Depth": {
+        value: 50,
         type:  "percent",
         min:   0,
         max:   100,
         step:  1
       },
       "Level": {
-        value: this.processor.wet.value,
+        value: 80,
         type:  "percent",
         min:   0,
         max:   100,
@@ -98,4 +111,4 @@ class Delay {
 import * as Tone from 'tone';
 import { connectAudioChain } from './effect';
 
-export {Delay};
+export { Chorus };
