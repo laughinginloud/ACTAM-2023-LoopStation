@@ -1,10 +1,9 @@
-class PitchShift {
+class LowpassFilter {
   audioContext;
   model;
 
-  // TODO: probabilmente rimuovere
-  pitch;
-  level;
+  cutoff;
+  resonance;
 
   mainParam;
   params;
@@ -14,19 +13,17 @@ class PitchShift {
     this.audioContext = Tone.Context;
     this.model        = model;
 
-    this.pitch = new Number(1); // TODO: fix
-    this.level = new Number(1);
+    this.cutoff    = new Number(20);
+    this.resonance = new Number(0);
 
-    this.mainParam = { "Pitch": this.pitch };
+    this.mainParam = { "Cutoff": this.cutoff };
     this.params = {
-      "Pitch": this.pitch,
-      "Level": this.level
+      "Resonance":  this.resonance,
+      "Cutoff":     this.cutoff
     };
 
-    // TODO: controllare i range
-    this.processor           = new Tone.PitchShift();
-    this.processor.pitch     = this.model.effects["Pitch shift"]["Pitch"].value;
-    this.processor.wet.value = this.model.effects["Pitch"]["Level"].value / 100; // TODO: trovare soluzione più pulita per percentuali
+    this.processor = new Tone.Filter(this.model.effects["Lowpass filter"]["Cutoff"].value, "lowpass", -12);
+    this.processor.Q.value = this.model.effects["Lowpass filter"]["Resonance"].value / 100;
   }
 
   modifyMainParam = value => {
@@ -37,11 +34,11 @@ class PitchShift {
     this.params[param] = parseInt(value);
 
     switch (param) {
-      case "Level":
-        this.processor.wet.value = value;
-        break;
-      case "Pitch":
-        this.processor.pitch = value;
+      case "Cutoff":
+        this.processor.frequency.value = value;
+        break
+      case "Resonance":
+        this.processor.Q.value = value;
         break;
     }
   }
@@ -59,21 +56,21 @@ class PitchShift {
   }
 
   getMainParam = () => {
-    return "Pitch";
+    return "Cutoff";
   }
 
   // TODO: cancellare?
   getRange = () => {
     return {
-      "Pitch": {
-        value: 12,
-        type:  "st",
-        min:   -24,
-        max:   24,
+      "Cutoff": {
+        value: 22000,
+        type:  "cutoff",
+        min:   20,
+        max:   22000,
         step:  1
       },
-      "Level": {
-        value: 100,
+      "Resonance": {
+        value: 0,
         type:  "percent",
         min:   0,
         max:   100,
@@ -86,4 +83,4 @@ class PitchShift {
 import * as Tone from 'tone';
 import { connectAudioChain } from './effect';
 
-export { PitchShift };
+export { LowpassFilter };

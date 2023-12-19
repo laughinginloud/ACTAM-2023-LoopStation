@@ -174,10 +174,27 @@ class Model {
       }
     },
 
-    // TODO: separare in high, low e band pass
     // BiquadFilterNode
-    "Filter": {
-      "Freqeuncy": {
+    "Highpass filter": {
+      "Cutoff": {
+        value: 20,
+        type:  "cutoff",
+        min:   20,
+        max:   22000,
+        step:  1
+      },
+      "Resonance": {
+        value: 0,
+        type:  "percent",
+        min:   0,
+        max:   100,
+        step:  1
+      }
+    },
+
+    // BiquadFilterNode
+    "Lowpass filter": {
+      "Cutoff": {
         value: 22000,
         type:  "cutoff",
         min:   20,
@@ -190,13 +207,6 @@ class Model {
         min:   0,
         max:   100,
         step:  1
-      },
-      "Slope": {
-        value: -12,
-        type:  "dB",
-        min:   -12,
-        max:   -48,
-        step:  -12 // TODO: controllare se -36 è ammesso (o se sono solo -12, -24 e -48)
       }
     },
 

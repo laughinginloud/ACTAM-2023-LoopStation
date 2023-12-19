@@ -38,17 +38,27 @@ class ChannelHandler {
 
     if (this.flags.rec) {
       this.channel.player.stopRecord();
-      document.getElementById("sp" + this.channelIndex).classList.add("modifica");
+      document.getElementById("rec" + this.channelIndex).classList.remove("recording_mode")
 
+      document.getElementById("sp" + this.channelIndex).classList.add("modifica");
       this.topBarHandler.notifyPlay(this.channelIndex);
     }
 
     else {
       this.channel.player.startRecord(this.channel.player.play);
-      document.getElementById("sp" + this.channelIndex).classList.remove("modifica");
+      document.getElementById("rec" + this.channelIndex).classList.add("recording_mode")
 
+      document.getElementById("sp" + this.channelIndex).classList.remove("modifica");
       this.topBarHandler.notifyPause(this.channelIndex);
     }
+  }
+
+  notifyStopRecord = () => {
+    this.channel.player.stopRecord();
+    document.getElementById("rec" + this.channelIndex).classList.remove("recording_mode")
+
+    document.getElementById("sp" + this.channelIndex).classList.add("modifica");
+    this.topBarHandler.notifyPlay(this.channelIndex);
   }
 
   gainHandler = () => {

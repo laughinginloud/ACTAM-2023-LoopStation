@@ -1,4 +1,4 @@
-import { gsap } from "gsap";
+import { gsap }      from "gsap";
 import { Draggable } from "gsap/Draggable";
 
 gsap.registerPlugin(Draggable);
@@ -39,13 +39,6 @@ function initGui() {
     type: "rotation",
     bounds: { minRotation: -135, maxRotation: 135 },
   })[0];
-
-  // Aggiungi un evento onclick a ciascun pulsante
-  for (const btn of document.querySelectorAll(".rec_button"))
-    btn.addEventListener("click", () => {
-      if (!btn.attributes["disabled"])
-        btn.classList.toggle("recording_mode");
-    });
 
   const btns = new Array(
     document.getElementById("global_clear"),

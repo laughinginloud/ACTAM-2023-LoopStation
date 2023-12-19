@@ -20,8 +20,10 @@ class View {
 
     this.topBar = new TopBarHandler(this.controller, this.channels);
 
-    for (const ch of this.channels)
+    for (const ch of this.channels) {
       ch.registerTopBarHandler(this.topBar);
+      ch.channel.player.registerChannelHandler(ch);
+    }
   }
 }
 

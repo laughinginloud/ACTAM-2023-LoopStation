@@ -6,6 +6,7 @@ class Player {
   audioBuffer;
   model;
   channel;
+  channelHandler;
 
   /**
    * @type AudioBufferSourceNode
@@ -17,6 +18,8 @@ class Player {
    */
   rec;     // TODO: Rename me, please!
   chunks;  // TODO: Rename me, please!
+
+  timeoutId;
 
   undoable; // TODO: Rename me, please!
 
@@ -31,8 +34,12 @@ class Player {
     this.audioContext = audioContext;
     this.model = model;
 
+    this.channelHandler = null;
+
     this.rec = null;
     this.chunks = [];
+
+    this.timeoutId = null;
 
     this.audioBuffer = { cur: null, old: null };
     this.audioBufferSource = null;
@@ -95,14 +102,20 @@ class Player {
     this.audioBuffer = { cur: null, old: null };
     this.audioBufferSource = null;
     this.undoable = false;
-
-    if (this.audioBuffer.cur == null)
-      this.model.firstRecord[this.index] = true;
+    this.model.firstRecord[this.index] = true;
   }
 
   startRecord = playBuffer => {
     this.stop();
     this.flags.play = false;
+
+    if (!this.model.firstRecord[this.index])
+      this.timeoutId = setTimeout(() => {
+        this.timeoutId = null;
+        this.flags.rec = false;
+        this.rec.stop();
+        this.channelHandler.notifyStopRecord();
+      }, this.audioBuffer.cur.duration * 1000);
 
     window.navigator.mediaDevices
       .getUserMedia({ audio: true })
@@ -178,6 +191,11 @@ class Player {
   }
 
   stopRecord = () => {
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+      this.timeoutId = null;
+    }
+
     this.rec?.stop();
   }
 
@@ -192,6 +210,10 @@ class Player {
       if (this.audioBuffer.cur == null)
         this.model.firstRecord[this.index] = true;
     }
+  }
+
+  registerChannelHandler = channelHandler => {
+    this.channelHandler = channelHandler;
   }
 }
 
