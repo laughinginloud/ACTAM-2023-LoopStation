@@ -36,11 +36,19 @@ function knobRange(angle, type, min, max, step) {
   let val;
   let repr;
 
+  let minv;
+  let maxv;
+  let scale;
+
   angle = (angle + 135) / 270; //0-1
 
   switch (type) {
     case "hz":
-      // TODO
+      minv = Math.log(0.1);
+      maxv = Math.log(10);
+      scale = (maxv-minv) / 100;
+      val = Math.exp(minv + scale*(angle * 100));
+      repr = val.toString().slice(0,4) + ' Hz';
       break;
     case "ms":
       val  = (Math.round((angle * 90)) + 10) / 100;
@@ -51,17 +59,23 @@ function knobRange(angle, type, min, max, step) {
       repr = Math.round(angle * 100) + '%';
       break;
     case "st":
-      val  = Math.round(angle * 48) - 24;
+      val  = Math.round(angle * 24) - 12;
       repr = val + ' st';
       break;
     case "dB":
-      // TODO
+      val = Math.round((angle * 100) - 100);
+      repr = val + ' dB';
       break;
     case "nat":
-      // TODO
+      val = Math.round((angle * 19) +1);
+      repr = val + ' dB';
       break;
     case "cutoff":
-      // TODO
+      minv = Math.log(20);
+      maxv = Math.log(22000);
+      scale = (maxv-minv) / 100;
+      val = Math.exp(minv + scale*(angle * 100));
+      repr = Math.round(val) + ' Hz';
       break;
   }
 

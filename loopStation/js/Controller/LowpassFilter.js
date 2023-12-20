@@ -18,8 +18,8 @@ class LowpassFilter {
 
     this.mainParam = { "Cutoff": this.cutoff };
     this.params = {
-      "Resonance":  this.resonance,
-      "Cutoff":     this.cutoff
+      "Cutoff":     this.cutoff,
+      "Resonance":  this.resonance
     };
 
     this.processor = new Tone.Filter(this.model.effects["Lowpass filter"]["Cutoff"].value, "lowpass", -12);
