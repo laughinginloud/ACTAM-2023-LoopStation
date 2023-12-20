@@ -26,12 +26,11 @@ class EditModeHandler {
     this.effKeys   = Object.keys(this.model.effects);
     this.paramKeys = new Array();
 
-    // TODO: aggiungere rimozione dell'effetto in fondo alla catena
     for (const key of this.effKeys)
       this.paramKeys.push(Object.keys(this.model.effects[key]).concat("Remove effect"));
 
     this.index        = 0;
-    this.selectEffect = 2; //TODO: enum? se sì, come?
+    this.selectEffect = 2;
     this.currEff      = { 'A': null, 'B': null, 'C': null };
     this.currChanCh   = null;
 

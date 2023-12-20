@@ -48,7 +48,7 @@ class Channel {
     this.effects[String(slot).trim()] = effect;
     this.rebuildChain();
 
-    //this.player.play();
+    this.player.play();
   }
 
   /**

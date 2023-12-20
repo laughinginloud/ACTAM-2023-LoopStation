@@ -61,8 +61,7 @@ class Player {
 
   play = () => {
     this.stop();
-
-    // TODO: null-check (causa: pressione undo quando il canale è vuoto)
+    // Causa null-check: pressione undo quando il canale è vuoto
     if (this.audioBuffer.cur) {
       this.audioBufferSource = this.audioContext.createBufferSource();
       this.audioBufferSource.buffer = this.audioBuffer.cur;

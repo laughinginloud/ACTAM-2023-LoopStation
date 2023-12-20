@@ -100,7 +100,7 @@ class ChannelHandler {
   }
 
   editButtonHandler = () => {
-    this.channel.player.stop();
+    //this.channel.player.stop();
 
     this.editMode = !this.editMode;
 
