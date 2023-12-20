@@ -60,6 +60,8 @@ class Player {
   }
 
   play = () => {
+    this.stop();
+
     // TODO: null-check (causa: pressione undo quando il canale è vuoto)
     if (this.audioBuffer.cur) {
       this.audioBufferSource = this.audioContext.createBufferSource();
@@ -106,7 +108,10 @@ class Player {
   }
 
   startRecord = playBuffer => {
-    this.stop();
+    this.rewind();
+    this.play();
+    this.flags.play = true;
+    //this.stop();
     this.flags.play = false;
 
     if (!this.model.firstRecord[this.index])
@@ -120,7 +125,7 @@ class Player {
     window.navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then(stream => {
-        this.rec = new MediaRecorder(stream); // TODO: MIME type?
+        this.rec = new MediaRecorder(stream, { mimeType: "audio/webm;codec=vorbis" }); // TODO: MIME type?
         this.rec.start();
 
         this.flags.rec = true;
@@ -195,6 +200,13 @@ class Player {
       clearTimeout(this.timeoutId);
       this.timeoutId = null;
     }
+
+    this.flags.play = false;
+
+    this.audioBufferSource?.stop();
+    this.audioBufferSource = null;
+
+    this.rewind();
 
     this.rec?.stop();
   }
