@@ -77,6 +77,11 @@ function knobRange(angle, type, min, max, step) {
       val = Math.exp(minv + scale*(angle * 100));
       repr = Math.round(val) + ' Hz';
       break;
+    case "q":
+      maxv = 20;
+      val = (angle * maxv);
+      repr = Math.round(val);
+      break;
   }
 
   return { val: val, repr: repr };

@@ -203,9 +203,9 @@ class Model {
       },
       "Resonance": {
         value: 0,
-        type:  "percent",
+        type:  "q",
         min:   0,
-        max:   100,
+        max:   3.4 * (10**38),
         step:  1
       }
     },
