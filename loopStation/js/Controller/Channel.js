@@ -48,6 +48,7 @@ class Channel {
     this.effects[String(slot).trim()] = effect;
     this.rebuildChain();
 
+    this.player.flags.play = true;
     this.player.play();
   }
 

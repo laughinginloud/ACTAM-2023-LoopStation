@@ -29,9 +29,8 @@ class Chorus {
       "Level":      this.level
     };
 
-    // TODO: controllare i range
-    this.processor = new Tone.Chorus(this.model.effects["Chorus"]["Frequency"].value, this.model.effects["Chorus"]["Delay time"].value, this.model.effects["Chorus"]["Depth"].value);
-    this.processor.wet.value = this.model.effects["Chorus"]["Level"].value / 100; // TODO: trovare soluzione più pulita per percentuali
+    this.processor = new Tone.Chorus(this.model.effects["Chorus"]["Frequency"].value, this.model.effects["Chorus"]["Delay time"].value, this.model.effects["Chorus"]["Depth"].value).start();
+    this.processor.wet.value = this.model.effects["Chorus"]["Level"].value;
   }
 
   modifyMainParam = value => {

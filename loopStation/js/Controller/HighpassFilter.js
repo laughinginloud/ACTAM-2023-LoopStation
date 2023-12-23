@@ -24,7 +24,7 @@ class HighpassFilter {
 
     // TODO: controllare i range
     this.processor = new Tone.Filter(this.model.effects["Highpass filter"]["Cutoff"].value, "highpass", -12);
-    this.processor.Q.value = this.model.effects["Highpass filter"]["Resonance"].value / 100; // TODO: trovare soluzione più pulita per percentuali
+    this.processor.Q.value = this.model.effects["Highpass filter"]["Resonance"].value;
   }
 
   modifyMainParam = value => {

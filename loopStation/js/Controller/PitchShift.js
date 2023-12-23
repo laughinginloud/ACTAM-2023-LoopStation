@@ -26,7 +26,7 @@ class PitchShift {
     // TODO: controllare i range
     this.processor           = new Tone.PitchShift();
     this.processor.pitch     = this.model.effects["Pitch shift"]["Pitch"].value;
-    this.processor.wet.value = this.model.effects["Pitch shift"]["Level"].value / 100; // TODO: trovare soluzione più pulita per percentuali
+    this.processor.wet.value = this.model.effects["Pitch shift"]["Level"].value;
   }
 
   modifyMainParam = value => {

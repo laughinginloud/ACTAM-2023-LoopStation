@@ -27,8 +27,8 @@ class Reverb {
     };
 
     // TODO: controllare i range
-    this.processor = new Tone.Freeverb(this.model.effects["Reverb"]["Room size"].value / 100, this.model.effects["Reverb"]["Dampening"].value);
-    this.processor.wet.value = this.model.effects["Reverb"]["Level"].value / 100; // TODO: trovare soluzione più pulita per percentuali
+    this.processor = new Tone.Freeverb(this.model.effects["Reverb"]["Room size"].value, this.model.effects["Reverb"]["Dampening"].value);
+    this.processor.wet.value = this.model.effects["Reverb"]["Level"].value;
   }
 
   modifyMainParam = value => {

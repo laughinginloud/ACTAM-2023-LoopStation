@@ -28,7 +28,7 @@ class Delay {
 
     // TODO: controllare i range
     this.processor = new Tone.FeedbackDelay(this.model.effects["Delay"]["Time"].value / 10, this.model.effects["Delay"]["Feedback"].value);
-    this.processor.wet.value = this.model.effects["Delay"]["Level"].value / 100; // TODO: trovare soluzione più pulita per percentuali
+    this.processor.wet.value = this.model.effects["Delay"]["Level"].value;
   }
 
   modifyMainParam = value => {

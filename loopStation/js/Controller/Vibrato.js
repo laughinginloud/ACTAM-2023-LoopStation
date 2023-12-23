@@ -27,8 +27,8 @@ class Vibrato {
     };
 
     // TODO: controllare i range
-    this.processor = new Tone.Vibrato(this.model.effects["Vibrato"]["Frequency"].value, this.model.effects["Vibrato"]["Depth"].value / 100);
-    this.processor.wet.value = this.model.effects["Vibrato"]["Level"].value / 100; // TODO: trovare soluzione più pulita per percentuali
+    this.processor = new Tone.Vibrato(this.model.effects["Vibrato"]["Frequency"].value, this.model.effects["Vibrato"]["Depth"].value);
+    this.processor.wet.value = this.model.effects["Vibrato"]["Level"].value;
   }
 
   modifyMainParam = value => {

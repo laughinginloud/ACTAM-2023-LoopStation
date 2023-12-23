@@ -23,7 +23,7 @@ class LowpassFilter {
     };
 
     this.processor = new Tone.Filter(this.model.effects["Lowpass filter"]["Cutoff"].value, "lowpass", -12);
-    this.processor.Q.value = this.model.effects["Lowpass filter"]["Resonance"].value / 100;
+    this.processor.Q.value = this.model.effects["Lowpass filter"]["Resonance"].value;
   }
 
   modifyMainParam = value => {
