@@ -26,8 +26,6 @@ class Tremolo {
       "Level":     this.level
     };
 
-    console.log(this.model.effects["Tremolo"]["Frequency"].value)
-
     this.processor = new Tone.Tremolo(this.model.effects["Tremolo"]["Frequency"].value, this.model.effects["Tremolo"]["Depth"].value).start();
     this.processor.wet.value = this.model.effects["Tremolo"]["Level"].value;
   }
