@@ -68,6 +68,7 @@ class Player {
       this.audioBufferSource.playbackRate.value = 1;
       this.audioBufferSource.loop = true;
       this.channel.connectPlayer(this.audioBufferSource);
+      this.channel.changeGain(Number(document.getElementById("points" + (this.index + 1)).value) / 100);
       this.audioBufferSource.start(0, this.pauseTime);
       this.startTime  = this.audioContext.currentTime - this.pauseTime;
       this.pauseTime  = 0;
