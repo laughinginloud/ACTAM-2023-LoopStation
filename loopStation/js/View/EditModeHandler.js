@@ -170,6 +170,8 @@ class EditModeHandler {
 
       this.printEffectName(this.effKeys[this.index]);
     }
+
+    this.currentChannel.notifyPlay();
   }
 
   printEffectName = eff => {
