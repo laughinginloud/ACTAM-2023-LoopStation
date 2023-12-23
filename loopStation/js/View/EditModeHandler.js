@@ -197,6 +197,7 @@ class EditModeHandler {
     const kr = knobRange(this.manopolone.rotation, this.model.effects[this.effKeys[this.currEff[this.currChanCh]]][param].type);
     this.printEffectParam(param, kr.repr);
     this.currentChannel.channel.effects[this.currChanCh].modifyMainParam(kr.val);
+    this.index = this.paramKeys[this.currEff[this.currChanCh]].indexOf(param);
   }
 }
 
