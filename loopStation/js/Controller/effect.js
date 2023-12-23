@@ -48,11 +48,15 @@ function knobRange(angle, type, min, max, step) {
       maxv = Math.log(10);
       scale = (maxv-minv) / 100;
       val = Math.exp(minv + scale*(angle * 100));
-      repr = val.toString().slice(0,4) + ' Hz';
+      repr = val.toPrecision(2) + ' Hz';
       break;
     case "ms":
       val  = (Math.round((angle * 90)) + 10) / 100;
       repr = Math.round((angle * 90)) + 10 + ' ms';
+      break;
+    case "decay":
+      val  = (angle + 0.1) * 1.9 - 0.09;
+      repr = val.toPrecision(2) + ' s';
       break;
     case "percent":
       val  = angle;

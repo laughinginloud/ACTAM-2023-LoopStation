@@ -3,8 +3,7 @@ class Reverb {
   model;
 
   // TODO: probabilmente rimuovere
-  roomSize;
-  dampening;
+  decay;
   level;
 
   mainParam;
@@ -15,19 +14,17 @@ class Reverb {
     this.audioContext = Tone.Context;
     this.model        = model;
 
-    this.roomSize  = new Number(1); //TODO: time range seems to be 1 secondo
-    this.dampening = new Number(1);
-    this.level     = new Number(0.5);
+    this.decay = new Number(1); //TODO: time range seems to be 1 secondo
+    this.level = new Number(0.5);
 
     this.mainParam = { "Level": this.level };
     this.params = {
-      "Room size": this.roomSize,
-      "Dampening": this.dampening,
-      "Level":     this.level
+      "Decay": this.decay,
+      "Level": this.level
     };
 
     // TODO: controllare i range
-    this.processor = new Tone.Freeverb(this.model.effects["Reverb"]["Room size"].value, this.model.effects["Reverb"]["Dampening"].value);
+    this.processor = new Tone.Reverb(this.model.effects["Reverb"]["Decay"].value);
     this.processor.wet.value = this.model.effects["Reverb"]["Level"].value;
   }
 
@@ -42,11 +39,8 @@ class Reverb {
       case "Level":
         this.processor.wet.value = value;
         break
-      case "Room size":
-        this.processor.roomSize.value = value;
-        break;
-      case "Dampening":
-        this.processor.dampening = value;
+      case "Decay":
+        this.processor.decay = value;
         break;
     }
   }

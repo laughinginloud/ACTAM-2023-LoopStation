@@ -61,18 +61,11 @@ class Model {
 
     // Freeverb
     "Reverb": {
-      "Room size": {
-        value: 0.5,
-        type:  "percent",
-        min:   0,
-        max:   1,
-        step:  0.01
-      },
-      "Dampening": {
-        value: 20,
-        type:  "cutoff",
-        min:   20,
-        max:   22000,
+      "Decay": {
+        value: 0.1,
+        type:  "decay",
+        min:   0.1,
+        max:   2,
         step:  0.01
       },
       "Level": {
