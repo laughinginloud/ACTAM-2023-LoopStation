@@ -93,6 +93,9 @@ class ChannelHandler {
   }
 
   notifyPlay = () => {
+    if (!this.flags.play)
+      return;
+    
     document.getElementById("sp" + this.channelIndex).classList.add("modifica");
     this.topBarHandler.notifyPlay(this.channelIndex);
   }
