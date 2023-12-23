@@ -44,43 +44,43 @@ class Model {
         step:  1
       },
       "Depth": {
-        value: 50,
+        value: 0.5,
         type:  "percent",
         min:   0,
-        max:   100,
-        step:  1
+        max:   1,
+        step:  0.01
       },
       "Level": {
-        value: 80,
+        value: 0.8,
         type:  "percent",
         min:   0,
-        max:   100,
-        step:  1
+        max:   1,
+        step:  0.01
       }
     },
 
     // Freeverb
     "Reverb": {
       "Room size": {
-        value: 50,
+        value: 0.5,
         type:  "percent",
         min:   0,
-        max:   100,
-        step:  1
+        max:   1,
+        step:  0.01
       },
       "Dampening": {
-        value: 0.1,
-        type:  "hz",
-        min:   0.1,
-        max:   10,
+        value: 20,
+        type:  "cutoff",
+        min:   20,
+        max:   22000,
         step:  0.01
       },
       "Level": {
-        value: 50,
+        value: 0.5,
         type:  "percent",
         min:   0,
-        max:   100,
-        step:  1
+        max:   1,
+        step:  0.01
       }
     },
 
@@ -97,15 +97,15 @@ class Model {
         value: 0,
         type:  "percent",
         min:   0,
-        max:   100,
-        step:  1
+        max:   1,
+        step:  0.01
       },
       "Level": {
-        value: 50,
+        value: 0.5,
         type:  "percent",
         min:   0,
-        max:   100,
-        step:  1
+        max:   1,
+        step:  0.01
       }
     },
 
@@ -118,18 +118,18 @@ class Model {
         step:  0.01
       },
       "Depth": {
-        value: 50,
+        value: 0.5,
         type:  "percent",
         min:   0,
-        max:   100,
-        step:  1
+        max:   1,
+        step:  0.01
       },
       "Level": {
-        value: 50,
+        value: 0.5,
         type:  "percent",
         min:   0,
-        max:   100,
-        step:  1
+        max:   1,
+        step:  0.01
       }
     },
 
@@ -142,18 +142,18 @@ class Model {
         step:  0.01
       },
       "Depth": {
-        value: 50,
+        value: 0.5,
         type:  "percent",
         min:   0,
-        max:   100,
-        step:  1
+        max:   1,
+        step:  0.01
       },
       "Level": {
-        value: 50,
+        value: 0.5,
         type:  "percent",
         min:   0,
-        max:   100,
-        step:  1
+        max:   1,
+        step:  0.01
       }
     },
 
@@ -166,11 +166,11 @@ class Model {
         step:  1
       },
       "Level": {
-        value: 100,
+        value: 1,
         type:  "percent",
         min:   0,
-        max:   100,
-        step:  1
+        max:   1,
+        step:  0.01
       }
     },
 
@@ -185,9 +185,9 @@ class Model {
       },
       "Resonance": {
         value: 0,
-        type:  "percent",
+        type:  "q",
         min:   0,
-        max:   100,
+        max:   20,
         step:  1
       }
     },
@@ -205,7 +205,7 @@ class Model {
         value: 0,
         type:  "q",
         min:   0,
-        max:   3.4 * (10**38),
+        max:   20,
         step:  1
       }
     },
