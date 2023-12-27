@@ -30,6 +30,8 @@ class Player {
 
   index;
 
+  compressor;
+
   constructor(audioContext, model, channel, index) {
     this.audioContext = audioContext;
     this.model = model;
@@ -57,6 +59,8 @@ class Player {
     this.pauseTime = 0;
 
     this.index = index;
+
+    this.compressor = new DynamicsCompressorNode(audioContext);
   }
 
   play = () => {
@@ -125,7 +129,8 @@ class Player {
     window.navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then(stream => {
-        this.rec = new MediaRecorder(stream, { mimeType: "audio/webm;codec=vorbis" }); // TODO: MIME type?
+        this.rec = new MediaRecorder(stream);
+        //this.rec = new MediaRecorder(stream, { mimeType: "audio/mpeg-3", audioBitrateMode: "constant", audioBitsPerSecond: 320 * 1024 });
         this.rec.start();
 
         this.flags.rec = true;
@@ -138,7 +143,7 @@ class Player {
           this.rewind();
 
           if (this.model.firstRecord[this.index]) {
-            const arrayBuffer = await this.chunks[0].arrayBuffer();
+            const arrayBuffer = await new Blob(this.chunks, { type: "audio/mpeg-3" }).arrayBuffer();
             this.audioBuffer.cur = await this.audioContext.decodeAudioData(arrayBuffer);
             this.model.firstRecord[this.index] = false;
           }
@@ -146,7 +151,7 @@ class Player {
           else {
             this.audioBuffer.old = this.audioBuffer.cur;
             let prevRecordings = this.audioBuffer.cur;
-            const arrayBuffer = await this.chunks[0].arrayBuffer();
+            const arrayBuffer = await new Blob(this.chunks, { type: "audio/mpeg-3" }).arrayBuffer();
             this.audioBuffer.cur = await this.audioContext.decodeAudioData(arrayBuffer);
             this.audioBuffer.cur = this.overdub([prevRecordings, this.audioBuffer.cur]);
           }
