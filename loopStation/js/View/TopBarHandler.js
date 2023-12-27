@@ -35,14 +35,14 @@ class TopBarHandler {
     }
 
     else {
-      document.getElementById("global_sp").classList.add("modifica");
-
       for (let idx = 0; idx < this.playing.length; ++idx) {
         this.channels[idx].channel.player.play();
 
         if (this.channels[idx].channel.player.flags.play) {
           document.getElementById("sp" + (idx + 1)).classList.add("modifica");
           this.playing[idx] = true;
+
+          document.getElementById("global_sp").classList.add("modifica");
         }
       }
     }
