@@ -95,9 +95,17 @@ class ChannelHandler {
   notifyPlay = () => {
     if (!this.flags.play)
       return;
-    
+
     document.getElementById("sp" + this.channelIndex).classList.add("modifica");
     this.topBarHandler.notifyPlay(this.channelIndex);
+  }
+
+  notifyPause = () => {
+    if (this.flags.play)
+      return;
+
+    document.getElementById("sp" + this.channelIndex).classList.remove("modifica");
+    this.topBarHandler.notifyPause(this.channelIndex);
   }
 
   clearButtonHandler = () => {

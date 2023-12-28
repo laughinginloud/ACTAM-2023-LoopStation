@@ -83,8 +83,11 @@ class EditModeHandler {
   }
 
   clearLastHandler = () => {
-    if (this.currentChannel) {
+    if (this.currentChannel?.channel.player.undoable) {
       this.currentChannel.channel.player.undo();
+
+      document.getElementById("clear_last").classList.toggle("modifica");
+      setTimeout(() => document.getElementById("clear_last").classList.toggle("modifica"), 500);
     }
   }
 

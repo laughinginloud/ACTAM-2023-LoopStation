@@ -214,8 +214,10 @@ class Player {
   undo = () => {
     if (this.undoable) {
       this.stop();
+      this.channelHandler.notifyPause();
       this.audioBuffer = { cur: this.audioBuffer.old, old: null };
       this.play();
+      this.channelHandler.notifyPlay();
 
       this.undoable = false;
 

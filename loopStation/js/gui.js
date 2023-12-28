@@ -42,7 +42,7 @@ function initGui() {
 
   const btns = new Array(
     document.getElementById("global_clear"),
-    document.getElementById("clear_last")
+    //document.getElementById("clear_last")
   );
 
   for (let i = 1; i <= 5; ++i) {

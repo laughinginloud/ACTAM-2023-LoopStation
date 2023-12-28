@@ -59,7 +59,6 @@ class Model {
       }
     },
 
-    // Freeverb
     "Reverb": {
       "Decay": {
         value: 0.1,
