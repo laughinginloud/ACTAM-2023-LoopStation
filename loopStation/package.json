@@ -1,14 +1,16 @@
 {
   "name": "loop-station",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "",
   "license": "",
-  "author": "",
+  "author": "laughinginloud, lenoci-alice & vanishady",
   "source": "js/main.js",
   "scripts": {
-    "build": "parcel build index.html",
+    "build": "parcel build index.html --public-url \".\"",
     "dev": "parcel index.html --open",
-    "start": "npm run build && npm run dev"
+    "start": "npm run build && npm run dev",
+    "predeploy": "rm -rf dist && parcel build ./*.html --public-url \"https://github.com/laughinginloud/ACTAM-2023-LoopStation\"",
+    "deploy": "testPages -d dist"
   },
   "dependencies": {
     "gsap": "latest",
