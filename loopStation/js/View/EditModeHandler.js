@@ -182,7 +182,7 @@ class EditModeHandler {
   }
 
   printEffectParam = (param, value) => {
-    this.textbox.value = 'Channel ' + this.currChanCh + '\n' + param + (value != undefined && value != null ? ('\n' + value) : '');
+    this.textbox.value = 'Channel ' + this.currChanCh + " - " + this.effKeys[this.currEff[this.currChanCh]] + '\n' + param + (value != undefined && value != null ? ('\n' + value) : '');
   }
 
   manopolinoHandler = () => {
