@@ -1,8 +1,10 @@
 # Loop Station
 
-- link
-- video
-- perché una loopstation (rc-505)
+For this project, we decided to build a Loop Station. This is a machine that let's us record and play back multiple
+simultaneous loops, whilst adding effects on top. We decided to tackle this specific machine because it let us explore
+multiple different facets of audio manipulation, from the recording and synchronisation of multiple concurrent loops, to the
+internal routing of the audio stream through a flexible and user-modifiable sequence of effects. Lastly, we are also fans of
+this design and wanted to learn the inner workings of such a machine.
 
 ## Link to the project
 
@@ -13,10 +15,6 @@ The project can be found at [this link](https://laughinginloud.github.io/ACTAM-2
 https://github.com/laughinginloud/ACTAM-2023-LoopStation/assets/33002186/6ce22c56-7021-4c5b-84c7-1f5241cf8c62
 
 ## Structure
-
-- mvc
-- divisioe in classi/moduli
----
 
 Regarding the internal structure of the project, we decided to adopt a subdivision
 based on the MVC pattern. This is divided in:
@@ -71,13 +69,6 @@ This tool was used to bundle all the code and dependencies in a smaller footprin
 public web page, and to create a local server for us to work on, emulating the final result of the upload.
 
 ## Main challenges
-
-- gestione stati e view
-- overdub
-- integrazione di tone (creazione effect chain con audio nodes)
-- latenza
-- gestione moduli
----
 
 A few big challenges were encountered during development.
 
