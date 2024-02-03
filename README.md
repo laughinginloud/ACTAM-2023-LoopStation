@@ -4,19 +4,18 @@
 - video
 - perché una loopstation (rc-505)
 
-## [Link to the project](https://laughinginloud.github.io/ACTAM-2023-LoopStation/)
+## Link to the project
+
+The project can be found at [this link](https://laughinginloud.github.io/ACTAM-2023-LoopStation/).
 
 ## Presentation video
 
-<video controls>
- <source src="ACTAM.mp4" type="video/mp4">
-Presentation video
-</video> 
+https://github.com/laughinginloud/ACTAM-2023-LoopStation/assets/33002186/6ce22c56-7021-4c5b-84c7-1f5241cf8c62
 
 ## Structure
 
 - mvc
-- divisione in classi/moduli
+- divisioe in classi/moduli
 ---
 
 Regarding the internal structure of the project, we decided to adopt a subdivision
