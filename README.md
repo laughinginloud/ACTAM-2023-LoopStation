@@ -4,6 +4,15 @@
 - video
 - perché una loopstation (rc-505)
 
+## [Link to the project](https://laughinginloud.github.io/ACTAM-2023-LoopStation/)
+
+## Presentation video
+
+<video controls>
+ <source src="ACTAM.mp4" type="video/mp4">
+Presentation video
+</video> 
+
 ## Structure
 
 - mvc
@@ -87,7 +96,7 @@ library only when we needed specific pieces. We therefore decided to create some
 provided by this library and to implement some utility methods to unwrap them and corretly connect them to the
 right audio context.
 
-Latency was a problem we immeditely recognised and try to mitigate. Whilst there is still a little latency with
+Latency was a problem we immeditely recognised and tried to mitigate. Whilst there is still a little latency with
 some operations, we minimised it by carefully selecting all the components we found to be the least problematic.
 We acted on this immediately, before starting to code the logic we had prepared, so as to avoid the need to
 rethink the main algorithms of our project.
