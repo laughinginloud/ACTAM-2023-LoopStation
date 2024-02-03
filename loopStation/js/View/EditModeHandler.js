@@ -79,6 +79,8 @@ class EditModeHandler {
 
       this.manopolone.disable();
       this.manopolino.disable();
+
+      this.textbox.value = "Loop Station\nRC-SOS";
     }
   }
 
